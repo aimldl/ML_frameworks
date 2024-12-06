@@ -1,0 +1,80 @@
+#!/bin/bash
+# batch_run
+#   * Rev.1: 2021-06-11 (Fri)
+#   * Draft: 2021-06-03 (Thu)
+#   Usage:
+#     $ ./batch-time_python_py_file > logs/2021-06-03_09-42.log
+
+NOW=`date +"%Y-%m-%d_%H%M"`
+DIR_LOG=${1:-"logs/${NOW}"}
+
+## Array/list of files to iteratively run
+PY_FILES=(
+1_mnist-mlp-keras.py
+2_mnist-simple-cnn-keras.py
+3_mnist-cnn-keras.py
+4_fashion_mnist-cnn-keras.py
+5_cifar10-cnn-keras-tf2.py
+6_imdb_movie_review-bidirectional_lstm-keras.py
+7_reuters_newswire-mlp-keras-tf2.py
+)
+
+## Function Definitions
+run() {
+  COMMAND=$1
+  echo "${COMMAND}"
+  eval "${COMMAND}"
+}
+
+get_max_gpu_utilization() {
+  FILE_NAME=$1
+  MAX=`sort -nr ${FILE_NAME} | head -1`
+  echo "max_gpu_util: ${MAX}"
+}
+
+get_mean_gpu_utilization() {
+  FILE_NAME=$1
+  MEAN=`awk '{ 
+    sum+=$1
+  } END {
+    if (NR>0) 
+      mean=sum/NR;
+    print mean;
+  }' ${FILE_NAME}`
+  # NR is number of rows
+  echo "mean_gpu_util: ${MEAN}"
+}
+
+#TODO
+# get_variance_gpu_utilization()
+
+# Main
+mkdir -p ${DIR_LOG}
+for PY_FILE in "${PY_FILES[@]}"; do
+  TENSOR_FLOW_LOG_FILE=`echo ${PY_FILE} | sed 's/\.py/\.tensorflow\.log/g'`
+  NVIDIA_SMI_LOG_FILE=`echo ${PY_FILE} | sed 's/\.py/\.gpu_log\.csv/g'`
+
+  COMMAND="nvidia-smi -f ${DIR_LOG}/${NVIDIA_SMI_LOG_FILE} --format=csv -l 1 --query-gpu=utilization.gpu,utilization.memory,memory.total,memory.free,memory.used &"
+  run "${COMMAND}"
+  COMMAND="time python ${PY_FILE} &> ${DIR_LOG}/${TENSOR_FLOW_LOG_FILE}"
+  run "${COMMAND}"
+  echo ''
+done
+
+# Do not run the awk command right after the previous part.
+# It doesn't work somehow.
+for PY_FILE in "${PY_FILES[@]}"; do
+  TENSOR_FLOW_LOG_FILE=`echo ${PY_FILE} | sed 's/\.py/\.tensorflow\.log/g'`
+  NVIDIA_SMI_LOG_FILE=`echo ${PY_FILE} | sed 's/\.py/\.gpu_log\.csv/g'`
+  GPU_PERFORMANCE_FILE=`echo ${PY_FILE} | sed 's/\.py/\.gpu_utils/g'`
+
+  COMMAND="grep '^training_time' ${DIR_LOG}/${TENSOR_FLOW_LOG_FILE}"
+  run "${COMMAND}"
+  COMMAND="awk '{print \$1;}' ${DIR_LOG}/${NVIDIA_SMI_LOG_FILE} | egrep -v '0|utilization' > ${DIR_LOG}/${GPU_PERFORMANCE_FILE}"
+  run "${COMMAND}"
+  COMMAND="get_max_gpu_utilization ${DIR_LOG}/${GPU_PERFORMANCE_FILE}"
+  run "${COMMAND}"
+  COMMAND="get_mean_gpu_utilization ${DIR_LOG}/${GPU_PERFORMANCE_FILE}"
+  run "${COMMAND}"
+  echo ''
+done

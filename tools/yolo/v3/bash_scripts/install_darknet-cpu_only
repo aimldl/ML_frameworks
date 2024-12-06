@@ -1,0 +1,28 @@
+#!/bin/bash
+
+##### Draft: 2021-02-17 (Wed)
+
+# install_darknet-cpu_only
+
+##### https://pjreddie.com/darknet/yolo/
+
+## Download the source codes for Darknet
+
+git clone https://github.com/pjreddie/darknet.git
+
+## Download YOLOv3 weights for testing purposes
+
+cd darknet/
+wget https://pjreddie.com/media/files/yolov3.weights &
+
+## Compile Darknet
+
+make
+
+## Verify the installation
+
+./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg
+
+## Change the file name
+
+cp darknet darknet.cpu

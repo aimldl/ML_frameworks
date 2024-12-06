@@ -1,0 +1,17 @@
+#!/bin/bash
+
+function fetch_eks_cluster_name() {
+
+  # Kubeflow's configuration file is ~/.kube/config.
+  # Get the line with "current-context:" and
+  #   extract the cluster name.
+
+  CURRENT_CONTEXT=`grep "current-context" ~/.kube/config | sed -r 's/:|@|\./ /g'`
+  # current-context: aimldl@ridiculous-sheepdog-1587095845.us-west-2.eksctl.io
+  # current-context  aimldl ridiculous-sheepdog-1587095845 us-west-2 eksctl io
+  
+  EKS_CLUSTER_NAME=`echo ${CURRENT_CONTEXT} | awk '{ print $3; }'`
+  echo ${EKS_CLUSTER_NAME}
+}
+
+fetch_eks_cluster_name

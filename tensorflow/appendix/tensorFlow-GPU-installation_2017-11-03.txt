@@ -1,0 +1,38 @@
+  280  2017-11-03 Fri 11:00:27 echo "Let's install TensorFlow GPU on the office GPU desktop."
+  281  2017-11-03 Fri 11:00:34 sudo apt-get install libcupti-dev
+  282  2017-11-03 Fri 09:52:01 ls
+  283  2017-11-03 Fri 09:52:01 cd xmind-8-update5-linux/
+  284  2017-11-03 Fri 09:52:01 ls
+  285  2017-11-03 Fri 09:52:01 cd ~
+  286  2017-11-03 Fri 09:52:01 ls
+  287  2017-11-03 Fri 09:52:01 ./connect_aws 
+  288  2017-11-03 Fri 09:52:05 h
+  289  2017-11-03 Fri 09:54:23 history
+  290  2017-11-03 Fri 09:56:53 h
+  291  2017-11-03 Fri 09:59:37 echo `date +%F" "%a" "%H:%M" ("%U"th week)"`
+  292  2017-11-03 Fri 10:30:40 echo $HISTSIZE
+  293  2017-11-03 Fri 10:30:48 echo $HISTFILESIZE
+  294  2017-11-03 Fri 10:32:00 source .bashrc
+  295  2017-11-03 Fri 10:32:02 s .bashrc
+  296  2017-11-03 Fri 10:32:34 mv connect_aws connect_aws-seoul
+  297  2017-11-03 Fri 10:32:41 cp connect_aws-seoul connect_aws-oregon
+  298  2017-11-03 Fri 10:32:43 l
+  299  2017-11-03 Fri 10:32:48 cat connect_aws-seoul 
+  300  2017-11-03 Fri 10:33:08 s .bashrc 
+  301  2017-11-03 Fri 10:33:20 n connect_aws-seoul 
+  302  2017-11-03 Fri 11:07:31 cp connect_aws-seoul connect_aws-oregon 
+  303  2017-11-03 Fri 10:32:48 cat connect_aws-seoul 
+  304  2017-11-03 Fri 10:33:20 n connect_aws-seoul 
+  305  2017-11-03 Fri 11:07:31 cp connect_aws-seoul connect_aws-oregon 
+  306  2017-11-03 Fri 11:19:26 s .bashrc 
+  307  2017-11-03 Fri 11:22:12 python
+  308  2017-11-03 Fri 11:22:33 sudo apt-get install python-pip python-dev python-virtualenv
+  309  2017-11-03 Fri 11:23:32 sudo apt autoremove
+  310  2017-11-03 Fri 11:25:07 virtualenv --system-site-packages tensorflow-gpu
+  311  2017-11-03 Fri 11:25:49 easy_install -U pip
+  312  2017-11-03 Fri 11:26:19 pip install --upgrade tensorflow-gpu
+  313  2017-11-03 Fri 11:27:08 deactivate
+  314  2017-11-03 Fri 11:27:29 source ~/tensorflow-gpu/bin/activate
+  315  2017-11-03 Fri 11:28:23 echo "TensorFlow-GPU is successfully installed!"
+  316  2017-11-03 Fri 11:28:36 echo "Reference: https://www.tensorflow.org/install/install_linux"
+

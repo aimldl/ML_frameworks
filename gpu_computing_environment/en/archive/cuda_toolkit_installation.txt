@@ -1,0 +1,5 @@
+Warning message when the following command was run.
+$ sudo apt-get install cuda
+
+W: Possible missing firmware /lib/firmware/i915/kbl_dmc_ver1_01.bin for module i915
+

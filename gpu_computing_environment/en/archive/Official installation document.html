@@ -1,0 +1,117 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="text/css" http-equiv="Content-Style-Type">
+<title>Official installation document</title>
+</head>
+<body>
+<h1 align="center" class="root">
+<a name="5c09v7pgc7o1d1chni4fsa216n">Official installation document</a>
+</h1>
+<div align="center" class="globalOverview">
+<img src="Official installation document_files/images/Official installation document.jpg"></div>
+<h2 class="topic">
+<a name="5lj1il48g5luni3u51qor6c4lq">NVIDIA CUDA Installation Guide for Linux</a>
+</h2>
+<h3 class="topic">
+<a name="7jcnqrfgjrjrvqflo0l8q0a8f0">&nbsp;the.kim@ubuntu-gpu-office:/usr/local/cuda/lib64$ lspci | grep -i nvidia
+01:00.0 VGA compatible controller: NVIDIA Corporation Device 1b06 (rev a1)
+01:00.1 Audio device: NVIDIA Corporation Device 10ef (rev a1)
+02:00.0 VGA compatible controller: NVIDIA Corporation Device 1b06 (rev a1)
+02:00.1 Audio device: NVIDIA Corporation Device 10ef (rev a1)
+the.kim@ubuntu-gpu-office:/usr/local/cuda/lib64$ uname -m &amp;&amp; cat /etc/*release
+x86_64
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=16.04
+DISTRIB_CODENAME=xenial
+DISTRIB_DESCRIPTION="Ubuntu 16.04.4 LTS"
+NAME="Ubuntu"
+VERSION="16.04.4 LTS (Xenial Xerus)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 16.04.4 LTS"
+VERSION_ID="16.04"
+HOME_URL="http://www.ubuntu.com/"
+SUPPORT_URL="http://help.ubuntu.com/"
+BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
+VERSION_CODENAME=xenial
+UBUNTU_CODENAME=xenial
+the.kim@ubuntu-gpu-office:/usr/local/cuda/lib64$ gcc --version
+gcc (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+the.kim@ubuntu-gpu-office:/usr/local/cuda/lib64$ uname -r
+\4.13.0-39-generic
+the.kim@ubuntu-gpu-office:/usr/local/cuda/lib64$ sudo apt-get install linux-headers-$(uname -r)
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+linux-headers-4.13.0-39-generic is already the newest version (4.13.0-39.44~16.04.1).
+linux-headers-4.13.0-39-generic set to manually installed.
+0 upgraded, 0 newly installed, 0 to remove and 37 not upgraded.</a>
+</h3>
+<h3 class="topic">
+<a name="4g0182732irgq84nkk2cdhndfa">&nbsp;https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html</a>
+</h3>
+<h3 class="topic">
+<a name="3g0p49l6hdrtl8hfht6lomorgs">&nbsp;https://developer.download.nvidia.com/compute/cuda/9.1/Prod/docs/sidebar/CUDA_Installation_Guide_Linux.pdf</a>
+</h3>
+<h2 class="topic">
+<a href="https://developer.nvidia.com/cuda-downloads?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1604&amp;target_type=deblocal" name="4go9m5eqi7smnpg45se8jmo0b3">https://developer.nvidia.com/cuda-downloads?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1604&amp;target_type=deblocal</a>
+</h2>
+<h3 class="topic">
+<a name="1mjv7mg1m9i1huqcsul9jcki4u">&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img height="244" src="Official installation document_files/3a0tp4qp805tjbfjl25q7am6k2.png" width="722"></p>
+<h3 class="topic">
+<a name="54dclto48pq9veegtvottsn2o5">&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img height="603" src="Official installation document_files/66bmf6u29rnej4lchvbg4h2aqs.png" width="708"></p>
+<h3 class="topic">
+<a name="2cv3701q1j1msdik7vvbd5ap2l">&nbsp;Base Installer</a>
+</h3>
+<h3 class="topic">
+<a name="610hea8h8ejoh4tf6pdpb6doeb">&nbsp;&nbsp;$ sudo dpkg -i cuda-repo-ubuntu1604-9-1-local_9.1.85-1_amd64.deb</a>
+</h3>
+<h3 class="topic">
+<a name="3kilvpgn9r80rfk2bb6rp7rb76">&nbsp;&nbsp;$ sudo apt-key add /var/cuda-repo-&lt;version&gt;/7fa2af80.pub</a>
+</h3>
+<h3 class="topic">
+<a name="3c0o9o7rpi8aedbcpt0uqs6hpg">&nbsp;&nbsp;&nbsp;&lt;version&gt;=9-1-local</a>
+</h3>
+<h3 class="topic">
+<a name="4oj4eq4ptddkuddcf2dns8k8cp">&nbsp;&nbsp;&nbsp;&nbsp;So, the right command is</a>
+</h3>
+<h3 class="topic">
+<a name="2a48qfcfmsnnh8al31otmlo183">&nbsp;&nbsp;&nbsp;&nbsp;the.kim@ubuntu-gpu-office:~/Downloads$ sudo apt-key add /var/cuda-repo-9-1-local/7fa2af80.pub</a>
+</h3>
+<h3 class="topic">
+<a name="76edhvf824io6ctd1hm5ggn9mu">&nbsp;&nbsp;`sudo apt-get update`</a>
+</h3>
+<h3 class="topic">
+<a name="6mgv34kjh0naq1fjed5h2lmn93">&nbsp;&nbsp;`sudo apt-get install cuda`</a>
+</h3>
+<h3 class="topic">
+<a name="60hq27nhb8rp7973oie1lfi0dg">&nbsp;&nbsp;Example</a>
+</h3>
+<h3 class="topic">
+<a name="7rc01ar87glpadh3bbkk5suv1a">&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img height="478" src="Official installation document_files/1u0bb0gehfo5gau1apfe8evkhm.png" width="621"></p>
+<h3 class="topic">
+<a href="https://devtalk.nvidia.com/default/topic/1026327/cuda-setup-and-installation/unable-to-install-cuda-in-ubuntu-16-04-in-any-way/" name="4q5j1bh5t2el72kps95c8qfqat">&nbsp;&nbsp;&nbsp;unable to install cuda in ubuntu 16.04 in any way</a>
+</h3>
+<h3 class="topic">
+<a name="592rlid0vbeb5fp9tsocc6r7ns">&nbsp;&nbsp;&nbsp;https://devtalk.nvidia.com/default/topic/1026327/cuda-setup-and-installation/unable-to-install-cuda-in-ubuntu-16-04-in-any-way/</a>
+</h3>
+<h2 class="topic">
+<a name="07t7a17uo7egm09u1omulbu96t">Chapter 7.Post-Mandatory Actions</a>
+</h2>
+</body>
+</html>

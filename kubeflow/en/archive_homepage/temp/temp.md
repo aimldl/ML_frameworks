@@ -1,0 +1,1 @@
+머신러닝 엔지니어와 데이터 사이엔티스트 들은 독립된 연산 환경 (Isolated Computing Environments)을 구축하기 위해서 Docker container나 Anaconda Virtual Environment를 쓰게 됩니다. Container환경과 가상환경 (Virtual Environment)은 상황에 따라 장단점이 있으므로 장기적으로는 모두 익혀두는 것이 좋습니다.

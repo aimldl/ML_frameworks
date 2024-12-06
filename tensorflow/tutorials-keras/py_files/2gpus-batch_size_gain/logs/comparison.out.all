@@ -1,0 +1,150 @@
+#./2021-06-11_1446/comparison.out
+#index	type		value
+1	run_time	0m27.718s
+2	run_time	2m41.099s
+3	run_time	0m36.871s
+4	run_time	0m36.800s
+5	run_time	0m41.697s
+6	run_time	3m42.722s
+7	run_time	0m17.247s
+1	training_time	0:00:16.287032
+2	training_time	0:02:30.111240
+3	training_time	0:00:27.546394
+4	training_time	0:00:27.400079
+5	training_time	0:00:29.750898
+6	training_time	0:03:27.827083
+7	training_time	0:00:08.963868
+1	max_gpu_util	88
+2	max_gpu_util	88
+3	max_gpu_util	88
+4	max_gpu_util	52
+5	max_gpu_util	52
+6	max_gpu_util	99
+7	max_gpu_util	
+1	mean_gpu_util	24.2219
+2	mean_gpu_util	24.5331
+3	mean_gpu_util	34.6087
+4	mean_gpu_util	37.5077
+5	mean_gpu_util	39.1923
+6	mean_gpu_util	44
+7	mean_gpu_util	
+#./2021-06-11_1419/comparison.out
+#index	type		value
+1	run_time	0m27.110s
+2	run_time	2m43.449s
+3	run_time	0m36.364s
+4	run_time	0m35.778s
+5	run_time	0m39.268s
+6	run_time	3m43.356s
+7	run_time	0m17.136s
+1	training_time	0:00:16.070318
+2	training_time	0:02:32.605372
+3	training_time	0:00:27.071801
+4	training_time	0:00:26.354538
+5	training_time	0:00:27.463237
+6	training_time	0:03:28.651875
+7	training_time	0:00:08.946595
+1	max_gpu_util	69
+2	max_gpu_util	94
+3	max_gpu_util	94
+4	max_gpu_util	94
+5	max_gpu_util	98
+6	max_gpu_util	98
+7	max_gpu_util	
+1	mean_gpu_util	24.6392
+2	mean_gpu_util	25.6
+3	mean_gpu_util	36.1845
+4	mean_gpu_util	38.3668
+5	mean_gpu_util	40.3355
+6	mean_gpu_util	44.6
+7	mean_gpu_util	
+#./2021-06-11_1455/comparison.out
+#index	type		value
+1	run_time	0m27.508s
+2	run_time	2m43.547s
+3	run_time	0m36.604s
+4	run_time	0m36.625s
+5	run_time	0m41.974s
+6	run_time	3m37.130s
+7	run_time	0m17.287s
+1	training_time	0:00:16.182398
+2	training_time	0:02:32.650957
+3	training_time	0:00:27.257914
+4	training_time	0:00:27.069665
+5	training_time	0:00:30.070209
+6	training_time	0:03:22.266724
+7	training_time	0:00:08.963283
+1	max_gpu_util	83
+2	max_gpu_util	64
+3	max_gpu_util	54
+4	max_gpu_util	54
+5	max_gpu_util	71
+6	max_gpu_util	87
+7	max_gpu_util	
+1	mean_gpu_util	27.9305
+2	mean_gpu_util	28.6031
+3	mean_gpu_util	38.962
+4	mean_gpu_util	40.8175
+5	mean_gpu_util	44.2248
+6	mean_gpu_util	46.3179
+7	mean_gpu_util	
+#./2021-06-11_1437/comparison.out
+#index	type		value
+1	run_time	0m27.590s
+2	run_time	2m43.741s
+3	run_time	0m36.883s
+4	run_time	0m36.391s
+5	run_time	0m41.811s
+6	run_time	3m40.424s
+7	run_time	0m17.149s
+1	training_time	0:00:16.144599
+2	training_time	0:02:32.862352
+3	training_time	0:00:27.575543
+4	training_time	0:00:27.169513
+5	training_time	0:00:29.927178
+6	training_time	0:03:25.684848
+7	training_time	0:00:08.949628
+1	max_gpu_util	81
+2	max_gpu_util	55
+3	max_gpu_util	81
+4	max_gpu_util	95
+5	max_gpu_util	95
+6	max_gpu_util	53
+7	max_gpu_util	
+1	mean_gpu_util	25.6293
+2	mean_gpu_util	26.8342
+3	mean_gpu_util	37.2553
+4	mean_gpu_util	38.9725
+5	mean_gpu_util	41.1458
+6	mean_gpu_util	45.2268
+7	mean_gpu_util	
+#./2021-06-11_1428/comparison.out
+#index	type		value
+1	run_time	0m27.300s
+2	run_time	2m43.641s
+3	run_time	0m36.545s
+4	run_time	0m35.921s
+5	run_time	0m41.831s
+6	run_time	3m33.825s
+7	run_time	0m16.223s
+1	training_time	0:00:16.154947
+2	training_time	0:02:32.748544
+3	training_time	0:00:27.340142
+4	training_time	0:00:26.412428
+5	training_time	0:00:29.814032
+6	training_time	0:03:18.690800
+7	training_time	0:00:08.026426
+1	max_gpu_util	97
+2	max_gpu_util	72
+3	max_gpu_util	54
+4	max_gpu_util	83
+5	max_gpu_util	99
+6	max_gpu_util	54
+7	max_gpu_util	
+1	mean_gpu_util	28.3835
+2	mean_gpu_util	28.914
+3	mean_gpu_util	39.4046
+4	mean_gpu_util	41.5114
+5	mean_gpu_util	44.68
+6	mean_gpu_util	46.4855
+7	mean_gpu_util	

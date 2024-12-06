@@ -1,0 +1,21 @@
+#!/bin/bash
+# compare
+#   * Rev.1: 2021-06-11 (Fri)
+#   * Draft: 2021-06-04 (Fri)
+
+DIR_LOG='logs'
+INPUT_FILE='comparison.out'
+OUTPUT_FILE='comparison.out.all'
+
+# Main
+echo "Merge all ${INPUT_FILE} under directory ${DIR_LOG} to $OUTPUT_FILE..."
+cd ${DIR_LOG}
+#find . -name ${INPUT_FILE} | xargs cat
+
+LIST_OF_FILES=`find . -name ${INPUT_FILE}`
+#echo "$LIST_OF_FILES"
+touch $OUTPUT_FILE
+for FILE in ${LIST_OF_FILES}; do
+  echo "#$FILE" >> $OUTPUT_FILE
+  cat $FILE >> $OUTPUT_FILE
+done

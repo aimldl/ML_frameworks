@@ -1,0 +1,14 @@
+#!/bin/bash
+# clean_logs
+#   * Rev.1: 2021-06-11 (Fri)
+#   * Draft: 2021-06-04 (Fri)
+
+# CAUTION:
+#   rm -rf * can be extremely dangerous!
+#   So use it with &&.
+#   If directory logs doesn't exist, an error message occurs.
+#     $ cd logs && rm -rf *
+#     ./clean_logs: line 4: cd: logs: No such file or directory
+#     $
+
+cd logs && rm -rf *

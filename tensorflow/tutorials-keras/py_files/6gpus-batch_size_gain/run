@@ -1,0 +1,73 @@
+#!/bin/bash
+# run
+#   * Rev.1: 2021-06-11 (Fri)
+#   * Draft: 2021-06-03 (Thu)
+
+NOW=`date +"%Y-%m-%d_%H%M"`
+#NOW='2021-06-11_0908'  # for debugging
+DIR_LOG="logs/${NOW}"
+LOG_FILE="${DIR_LOG}/run.log"
+OUTPUT_FILE="${DIR_LOG}/comparison.out"
+
+## Function Definitions
+run() {
+  COMMAND=$1
+  echo "${COMMAND}"
+  eval "${COMMAND}"
+}
+
+print_header() {
+  echo -e "#index\ttype\t\tvalue"
+}
+
+get_run_times() {
+  LOG=$1
+  # Do not use the run function which will output the command
+  grep '^real' ${LOG} | awk '{printf("%d\trun_time\t%s\n", NR, $2)}'
+  # Old code
+  #echo '#run_time'
+  #egrep '^real' ${LOG} | awk '{print $2;}'
+}
+
+get_training_times() {
+  LOG=$1
+  # Do not use the run function which will output the command
+  grep '^training_time' ${LOG} | awk '{printf("%d\ttraining_time\t%s\n", NR, $2)}'
+
+  #echo '#training_time'
+  #egrep '^training_time' ${LOG} | awk '{print $2;}'
+}
+
+get_max_gpu_utils() {
+  LOG=$1
+  # Do not use the run function which will output the command
+  grep '^max_gpu_util' ${LOG} | awk '{printf("%d\tmax_gpu_util\t%s\n", NR, $2)}'
+
+  #echo '#max_gpu_util'
+  #egrep '^max_gpu_util' ${LOG} | awk '{print $2;}'
+}
+
+get_mean_gpu_utils() {
+  LOG=$1
+  # Do not use the run function which will output the command
+  grep '^mean_gpu_util' ${LOG} | awk '{printf("%d\tmean_gpu_util\t%s\n", NR, $2)}'
+
+  #echo '#mean_gpu_util'
+  #egrep '^mean_gpu_util' ${LOG} | awk '{print $2;}'
+}
+
+parse_log() {
+  LOG_FILE=$1
+  OUTPUT_FILE=$2
+
+  print_header > ${OUTPUT_FILE}
+  get_run_times ${LOG_FILE} >> ${OUTPUT_FILE}
+  get_training_times ${LOG_FILE} >> ${OUTPUT_FILE}
+  get_max_gpu_utils ${LOG_FILE} >> ${OUTPUT_FILE}
+  get_mean_gpu_utils ${LOG_FILE} >> ${OUTPUT_FILE}
+}
+
+# Main
+run "mkdir -p ${DIR_LOG}"
+run "./batch-time_python_py_file ${DIR_LOG} &> ${LOG_FILE}" 
+run "parse_log ${LOG_FILE} ${OUTPUT_FILE}"

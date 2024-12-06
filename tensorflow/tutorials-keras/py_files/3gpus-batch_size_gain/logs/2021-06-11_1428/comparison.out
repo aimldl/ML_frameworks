@@ -1,0 +1,29 @@
+#index	type		value
+1	run_time	0m27.012s
+2	run_time	2m42.134s
+3	run_time	0m36.246s
+4	run_time	0m36.223s
+5	run_time	0m40.363s
+6	run_time	3m39.723s
+7	run_time	0m16.674s
+1	training_time	0:00:16.197103
+2	training_time	0:02:31.667108
+3	training_time	0:00:27.538552
+4	training_time	0:00:27.395624
+5	training_time	0:00:28.614466
+6	training_time	0:03:25.056170
+7	training_time	0:00:08.872077
+1	max_gpu_util	97
+2	max_gpu_util	94
+3	max_gpu_util	62
+4	max_gpu_util	53
+5	max_gpu_util	64
+6	max_gpu_util	53
+7	max_gpu_util	
+1	mean_gpu_util	25.8716
+2	mean_gpu_util	26.434
+3	mean_gpu_util	36.2748
+4	mean_gpu_util	38.6572
+5	mean_gpu_util	42.6144
+6	mean_gpu_util	45.2584
+7	mean_gpu_util	

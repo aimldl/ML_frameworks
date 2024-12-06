@@ -1,0 +1,17 @@
+#!/bin/bash
+# batch-run
+#   * Rev.1: 2021-06-09 (Wed)
+#   * Draft: 2021-06-04 (Fri)
+
+# Default: 5
+#   Initially, I set it to 10.
+#   The variation is not high.
+#   So 5 will do.
+MAX_ITERATION=${1:-"5"}
+#MAX_ITERATION=${1:-"2"}
+
+for ((i=0; i<$MAX_ITERATION; i++));do
+  #echo $i
+  ./run
+done
+./compare

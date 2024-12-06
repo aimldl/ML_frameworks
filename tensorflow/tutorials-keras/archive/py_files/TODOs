@@ -1,0 +1,25 @@
+To-Dos
+v keras_getting_started.py
+
+Start from keras_getting_started-01.py
+The error message is:
+$ python3 keras_getting_started-01.py
+Using TensorFlow backend.
+Traceback (most recent call last):
+  File "keras_getting_started-01.py", line 27, in <module>
+    import matplotlib.pyplot as plot
+  File "/usr/local/lib/python3.6/dist-packages/matplotlib/pyplot.py", line 115, in <module>
+    _backend_mod, new_figure_manager, draw_if_interactive, _show = pylab_setup()
+  File "/usr/local/lib/python3.6/dist-packages/matplotlib/backends/__init__.py", line 62, in pylab_setup
+    [backend_name], 0)
+  File "/usr/local/lib/python3.6/dist-packages/matplotlib/backends/backend_tkagg.py", line 4, in <module>
+    from . import tkagg  # Paint image to Tk photo blitter extension.
+  File "/usr/local/lib/python3.6/dist-packages/matplotlib/backends/tkagg.py", line 5, in <module>
+    from six.moves import tkinter as Tk
+  File "/usr/lib/python3/dist-packages/six.py", line 92, in __get__
+    result = self._resolve()
+  File "/usr/lib/python3/dist-packages/six.py", line 115, in _resolve
+    return _import_module(self.mod)
+  File "/usr/lib/python3/dist-packages/six.py", line 82, in _import_module
+    __import__(name)
+ModuleNotFoundError: No module named 'tkinter'

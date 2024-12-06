@@ -1,0 +1,37 @@
+darknet_video
+
+Google search: installing opencv on ubuntu
+
+* [Install OpenCV-Python in Ubuntu - OpenCV](https://docs.opencv.org/master/d2/de6/tutorial_py_setup_in_ubuntu.html)
+
+### Install
+``bash
+$ sudo apt install -y python-opencv
+```
+
+### Verify
+​```bash
+$ python -c 'import cv2 as cv; print(cv.__version__)'
+```
+
+In Python
+
+```python
+import cv2 as cv
+print(cv.__version__)
+```
+
+$ python -c 'import cv2 as cv; print(cv.__version__)'
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ImportError: No module named 'cv2'
+
+
+* [How to Install OpenCV on Ubuntu 18.04](https://linuxize.com/post/how-to-install-opencv-on-ubuntu-18-04/)
+
+### Install
+``bash
+$ sudo apt install -y python3-opencv
+```
+
+```

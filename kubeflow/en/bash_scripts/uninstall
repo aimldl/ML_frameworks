@@ -1,0 +1,108 @@
+#!/bin/bash
+# uninstall_kubeflow
+#   * Draft: 2020-04-17 (Fri)
+#
+#   Written by Tae-Hung "T" Kim, Ph.D.
+#   https://github.com/aimldl
+#   
+#   Documentation / Kubeflow on AWS / Deployment / Uninstall Kubeflow
+#     https://www.kubeflow.org/docs/aws/deploy/uninstall-kubeflow/
+#     Instructions for uninstall Kubeflow
+#  Usage:
+#    $ chmod +x uninstall_kubeflow
+#    $ ./uninstall_kubeflow
+
+# TKIM
+BASE_DIR_NAME='kubeflow'
+
+function get_eks_cluster_name() {
+
+  # Kubeflow's configuration file is ~/.kube/config.
+  # Get the line with "current-context:" and
+  #   extract the cluster name.
+
+  CURRENT_CONTEXT=`grep "current-context" ~/.kube/config | sed -r 's/:|@|\./ /g'`
+  # current-context: aimldl@ridiculous-sheepdog-1587095845.us-west-2.eksctl.io
+  # current-context  aimldl ridiculous-sheepdog-1587095845 us-west-2 eksctl io
+  # 1                2      3                              4         5      6               
+  EKS_CLUSTER_NAME=`echo ${CURRENT_CONTEXT} | awk '{ print $3; }'`
+  echo ${EKS_CLUSTER_NAME}
+}
+
+function run() {
+  # To display the command before running it.
+  # Usage:
+  #   run "COMMAND"
+  # Example:
+  #   If cd ${KF_DIR} is the command to run,
+  #     run "cd ${KF_DIR}"
+  CMD=$1
+  echo $CMD
+  eval $CMD
+}
+
+EKS_CLUSTER_NAME=`get_eks_cluster_name`
+
+export AWS_CLUSTER_NAME=${EKS_CLUSTER_NAME}
+export KF_NAME=${AWS_CLUSTER_NAME}
+export BASE_DIR=~/${BASE_DIR_NAME}
+export KF_DIR=${BASE_DIR}/${KF_NAME}
+
+read -p "Select 1.the standard set-up or 2. DEX authentication ([1]/2)?"
+CONFIG_OPTION=$REPLY
+
+echo "AWS_CLUSTER_NAME = $AWS_CLUSTER_NAME"
+echo "KF_NAME          = $KF_NAME"
+echo "BASE_DIR         = $BASE_DIR"
+echo "KF_DIR           = $KF_DIR"
+
+export CONFIG_FILE=${KF_DIR}/kfctl_aws.yaml
+echo "CONFIG_FILE      = $CONFIG_FILE"
+# TKIM
+
+echo "----------------------"
+echo "  Uninstall Kubeflow  "
+echo "----------------------"
+# This will delete the kubeflow and istio-system namespaces which have been created via kfctl.
+
+run "cd ${KF_DIR}"
+run "kfctl delete -f ${CONFIG_FILE}"
+
+#Note: If you installed Kubeflow on an existing Amazon EKS cluster, these scripts won’t tear down your cluster in this step. If you want to shutdown EKS cluster, you must manually delete it by yourself.
+
+# cd /home/aimldl/kubeflow/ridiculous-sheepdog-1587095845
+# kfctl delete -f /home/aimldl/kubeflow/ridiculous-sheepdog-1587095845/kfctl_aws.yaml
+# WARN[0002] File kustomize/istio-ingress/base/ingress.yaml not found  filename="aws/aws.go:874"
+
+echo ""
+echo "------------------------"
+echo "  Uninstall Kubernetes  "
+echo "------------------------"
+# assuming it was done via a cluster.yaml file and eksctl, use this:
+# That will invoke the DELETE action in the cloudformation stacks.
+
+# TODO: figure out where is cluster.yaml for eksctl
+
+run "eksctl delete cluster"
+#run "eksctl delete cluster -f cluster.yaml"
+
+#Note: It is possible that parts of the cloudformation delete will fail. In that case try to manually delete the eks-xxx role in IAM first, then the ALB, the eks target groups and the subnets of that particular cluster. Then retry the command, it will properly delete the nodegroups and the cluster.
+
+#$ eksctl delete --help
+#Delete resource(s)
+#
+#Usage: eksctl delete [flags]
+#
+#Commands:
+#  eksctl delete cluster                 Delete a cluster
+#  eksctl delete nodegroup               Delete a nodegroup
+#  eksctl delete iamserviceaccount       Delete an IAM service account
+#  eksctl delete iamidentitymapping      Delete a IAM identity mapping
+#  eksctl delete fargateprofile          Delete Fargate profile
+#
+#Common flags:
+#  -C, --color string   toggle colorized logs (valid options: true, false, fabulous) (default "true")
+#  -h, --help           help for this command
+#  -v, --verbose int    set log level, use 0 to silence, 4 for debugging and 5 for debugging with AWS debug logging (default 3)
+#
+#Use 'eksctl delete [command] --help' for more information about a command.

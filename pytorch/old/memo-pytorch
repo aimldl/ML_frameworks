@@ -1,0 +1,41 @@
+[To install Anaconda,]
+
+[To install PyTorch,](https://deeplizard.com/learn/video/UWlFM0R_x6I)
+$ conda install pytorch torchvision cudatoolkit=9.0 -c pytorch
+I've installed 10.1 in the machine. Will the cudatoolkit version 9.0 cause a problem?
+
+[Verify the PyTorch install]
+
+$ python
+>>> import torch
+>>> torch.__version__
+>>> torch.cuda.is_available()
+    # Expecting True
+>>> torch.version.cuda
+    # Expecting '9.0.xxx'
+>>>
+
+(base) aimldl@GPU-Desktop:~$ python
+Python 3.7.3 (default, Mar 27 2019, 22:11:17) 
+[GCC 7.3.0] :: Anaconda, Inc. on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import otrch
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'otrch'
+>>> import torch
+>>> torch.__version__
+'1.1.0'
+>>> torch.cuda.is_available()
+True
+>>> torch.version.cuda
+'9.0.176'
+>>>
+
+[To install TorchText,]
+$ pip install torchtext
+
+[To install spaCy,](https://spacy.io/usage/)
+$ pip install -U spacy
+$ python -m spacy download en

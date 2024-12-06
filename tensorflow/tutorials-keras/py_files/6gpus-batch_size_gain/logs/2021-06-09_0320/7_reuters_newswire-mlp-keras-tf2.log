@@ -1,0 +1,65 @@
+Number of devices: 6
+batch_size_per_replica: 512
+batch_size: 3072 = 512 * 6
+8982 training samples
+2246 test samples
+11228 total samples
+8982 training labels, 2246 test labels
+? period ended december 31 shr profit 11 cts vs loss 24 cts net profit 224 271 vs loss 511 349 revs 7 258 688 vs 7 200 349 reuter 3
+x_train (8982, 10000)
+x_test  (2246, 10000)
+y_train_dummy (8982, 46)
+y_test_dummy  (2246, 46)
+3 [0. 0. 0. 1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+ 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+4 [0. 0. 0. 0. 1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+ 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+y_train (8982, 46)
+y_test  (2246, 46)
+3 [0. 0. 0. 1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+ 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+4 [0. 0. 0. 0. 1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+ 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+x_val  (1000, 10000)
+y_val  (1000, 46)
+partial_x_train  (7982, 10000)
+partial_y_train  (7982, 46)
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+dense (Dense)                (None, 64)                640064    
+_________________________________________________________________
+dense_1 (Dense)              (None, 64)                4160      
+_________________________________________________________________
+dense_2 (Dense)              (None, 46)                2990      
+=================================================================
+Total params: 647,214
+Trainable params: 647,214
+Non-trainable params: 0
+_________________________________________________________________
+Epoch 1/10
+1/3 [=========>....................] - ETA: 2s - loss: 3.8390 - accuracy: 0.02543/3 [==============================] - 2s 278ms/step - loss: 3.7413 - accuracy: 0.1912 - val_loss: 3.2032 - val_accuracy: 0.4930
+Epoch 2/10
+1/3 [=========>....................] - ETA: 0s - loss: 3.1630 - accuracy: 0.50133/3 [==============================] - 0s 49ms/step - loss: 3.0605 - accuracy: 0.5118 - val_loss: 2.5893 - val_accuracy: 0.5760
+Epoch 3/10
+1/3 [=========>....................] - ETA: 0s - loss: 2.5168 - accuracy: 0.56643/3 [==============================] - 0s 62ms/step - loss: 2.4264 - accuracy: 0.5775 - val_loss: 2.1309 - val_accuracy: 0.6130
+Epoch 4/10
+1/3 [=========>....................] - ETA: 0s - loss: 2.0170 - accuracy: 0.64033/3 [==============================] - 0s 49ms/step - loss: 1.9575 - accuracy: 0.6422 - val_loss: 1.8261 - val_accuracy: 0.6330
+Epoch 5/10
+1/3 [=========>....................] - ETA: 0s - loss: 1.6906 - accuracy: 0.67423/3 [==============================] - 0s 49ms/step - loss: 1.6464 - accuracy: 0.6814 - val_loss: 1.6427 - val_accuracy: 0.6580
+Epoch 6/10
+1/3 [=========>....................] - ETA: 0s - loss: 1.4537 - accuracy: 0.71523/3 [==============================] - 0s 50ms/step - loss: 1.4352 - accuracy: 0.7112 - val_loss: 1.5096 - val_accuracy: 0.6720
+Epoch 7/10
+1/3 [=========>....................] - ETA: 0s - loss: 1.2958 - accuracy: 0.72333/3 [==============================] - 0s 56ms/step - loss: 1.2736 - accuracy: 0.7326 - val_loss: 1.4012 - val_accuracy: 0.6990
+Epoch 8/10
+1/3 [=========>....................] - ETA: 0s - loss: 1.1563 - accuracy: 0.76693/3 [==============================] - 0s 49ms/step - loss: 1.1497 - accuracy: 0.7615 - val_loss: 1.3305 - val_accuracy: 0.6940
+Epoch 9/10
+1/3 [=========>....................] - ETA: 0s - loss: 1.0776 - accuracy: 0.75813/3 [==============================] - 0s 50ms/step - loss: 1.0560 - accuracy: 0.7701 - val_loss: 1.2630 - val_accuracy: 0.7310
+Epoch 10/10
+1/3 [=========>....................] - ETA: 0s - loss: 0.9585 - accuracy: 0.80633/3 [==============================] - 0s 51ms/step - loss: 0.9580 - accuracy: 0.8003 - val_loss: 1.2232 - val_accuracy: 0.7340
+/home/ubuntu/anaconda3/envs/tensorflow2_latest_p37/gpu_cuda11.0/lib/python3.7/site-packages/tensorflow/python/keras/datasets/reuters.py:148: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  x_train, y_train = np.array(xs[:idx]), np.array(labels[:idx])
+/home/ubuntu/anaconda3/envs/tensorflow2_latest_p37/gpu_cuda11.0/lib/python3.7/site-packages/tensorflow/python/keras/datasets/reuters.py:149: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  x_test, y_test = np.array(xs[idx:]), np.array(labels[idx:])
+training_time: 0:00:03.405350

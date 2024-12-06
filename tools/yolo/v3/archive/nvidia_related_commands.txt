@@ -1,0 +1,102 @@
+
+Google search: ubuntu cudnn 설치 확인
+
+# NVIDIA driver version
+
+$ cat /proc/driver/nvidia/version
+NVRM version: NVIDIA UNIX x86_64 Kernel Module  460.32.03  Sun Dec 27 19:00:34 UTC 2020
+GCC version:  gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04) 
+$
+
+$ nvidia-smi
+
+# CUDA
+$ nvcc --version
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2020 NVIDIA Corporation
+Built on Wed_Jul_22_19:09:09_PDT_2020
+Cuda compilation tools, release 11.0, V11.0.221
+Build cuda_11.0_bu.TC445_37.28845127_0
+$
+
+# CUDNN
+$ cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2
+#define CUDNN_MAJOR 7
+#define CUDNN_MINOR 4
+#define CUDNN_PATCHLEVEL 1
+--
+#define CUDNN_VERSION (CUDNN_MAJOR * 1000 + CUDNN_MINOR * 100 + CUDNN_PATCHLEVEL)
+#include "driver_types.h"
+$
+
+7.4.1.버전
+
+[nvdia driver, CUDA, CUDNN 설치 여부 및 버전 검사](https://driz2le.tistory.com/264), 2019-09-15
+
+4. cuDNN 설치
+cuDNN(Deep Neural Network)은 GPU-accelerated 라이브러리로 딥러닝을 돌릴 때 사용합니다. cuDNN을 on/off 했을 때 속도 차이가 넘사벽 수준입니다. 선택이 아니라 필수로 사용해야 하는 라이브러리죠.
+
+Google search: ubuntu cudnn 설치
+[Ubuntu 18.04 에서 CUDA+CUDNN 설치하기](https://cafepurple.tistory.com/39)
+[UBUNTU 18.04 설치 #2-1 CUDA, CUDNN](https://eungbean.github.io/2018/08/08/Ubuntu-Installation2-1/)
+
+
+설치파일 다운로드 하기
+developer.nvidia.com/cudnn
+[화면 캡쳐 있음]
+https://developer.nvidia.com/rdp/cudnn-download
+
+
+$ nvcc --version
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2020 NVIDIA Corporation
+Built on Wed_Jul_22_19:09:09_PDT_2020
+Cuda compilation tools, release 11.0, V11.0.221
+Build cuda_11.0_bu.TC445_37.28845127_0
+$
+
+버전이 cuda11.0이므로 
+
+Detecting Objects in Images and Videos using darknet and YOLOv3 Convolutional Neural Networks
+https://medium.com/@thomas.lever.business/detecting-objects-in-images-and-videos-using-darknet-and-yolov3-convolutional-neural-networks-be7694456555
+
+
+$ sudo dpkg -i libcudnn8_8.1.0.77-1+cuda11.2_amd64.deb
+[sudo] k8smaster의 암호: 
+(데이터베이스 읽는중 ...현재 254093개의 파일과 디렉터리가 설치되어 있습니다.)
+Preparing to unpack libcudnn8_8.1.0.77-1+cuda11.2_amd64.deb ...
+Unpacking libcudnn8 (8.1.0.77-1+cuda11.2) over (8.1.0.77-1+cuda11.2) ...
+libcudnn8 (8.1.0.77-1+cuda11.2) 설정하는 중입니다 ...
+Processing triggers for libc-bin (2.27-3ubuntu1.4) ...
+
+$ sudo dpkg -i libcudnn8-dev_8.1.0.77-1+cuda11.2_amd64.deb
+(데이터베이스 읽는중 ...현재 254094개의 파일과 디렉터리가 설치되어 있습니다.)
+Preparing to unpack libcudnn8-dev_8.1.0.77-1+cuda11.2_amd64.deb ...
+update-alternatives: 수동으로 선택한 대체 항목을 지우는 중 - libcudnn을(를) 자동 모드로 변경합니다
+update-alternatives: using /usr/include/x86_64-linux-gnu/cudnn_v7.h to provide /usr/include/cudnn.h (libcudnn) in auto mode
+Unpacking libcudnn8-dev (8.1.0.77-1+cuda11.2) over (8.1.0.77-1+cuda11.2) ...
+libcudnn8-dev (8.1.0.77-1+cuda11.2) 설정하는 중입니다 ...
+update-alternatives: using /usr/include/x86_64-linux-gnu/cudnn_v8.h to provide /usr/include/cudnn.h (libcudnn) in auto mode
+
+$ sudo dpkg -i libcudnn8-samples_8.1.0.77-1+cuda11.2_amd64.deb
+Selecting previously unselected package libcudnn8-samples.
+(데이터베이스 읽는중 ...현재 254086개의 파일과 디렉터리가 설치되어 있습니다.)
+Preparing to unpack libcudnn8-samples_8.1.0.77-1+cuda11.2_amd64.deb ...
+Unpacking libcudnn8-samples (8.1.0.77-1+cuda11.2) ...
+libcudnn8-samples (8.1.0.77-1+cuda11.2) 설정하는 중입니다 ...
+$ 
+
+
+$ docker ps
+CONTAINER ID        IMAGE                                            COMMAND             CREATED             STATUS              PORTS               NAMES
+0f849469a8df        nvcr.io/nvidia/cuda:11.2.0-runtime-ubuntu18.04   "bash"              5 days ago          Up 5 days                               brave_grothendieck
+$
+
+https://developer.nvidia.com/rdp/cudnn-download
+cuDNN Library for Linux (x86_64)
+
+docker run -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -h $HOSTNAME -v $HOME/.Xauthority:/home/darknet/.Xauthority cuda_with_x11 bash
+
+
+pkg-config --libs opencv
+pkg-config --cflags opencv

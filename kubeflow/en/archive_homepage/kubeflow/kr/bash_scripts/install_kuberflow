@@ -1,0 +1,511 @@
+#!/bin/bash
+# install_kubeflow
+#
+# Copyright (c) 2020 Tae Hyung Kim
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
+# install_kubeflow
+#   * Rev.6: 2020-05-04 (Mon)
+#   * Rev.5: 2020-04-24 (Fri)
+#   * Rev.4: 2020-04-22 (Wed)
+#   * Rev.3: 2020-04-20 (Mon)
+#   * Rev.2: 2020-04-17 (Fri)
+#   * Rev.1: 2020-04-16 (Thu)
+#   * Draft: 2020-04-14 (Tue)
+#   Written by Tae-Hung "T" Kim, Ph.D.
+#   https://github.com/aimldl
+#   
+#  Usage:
+#    To run,
+#      $ ./install
+#
+#    To exit, hit Ctrl+C.
+#      $ ./install
+#        ...
+#      ----------------------------
+#        Prepare your environment  
+#      ----------------------------
+#      
+#      Install kfctl ([y]/n)?^C
+#      $
+#
+# To understand this script, read the official Kubeflow installation tutorial.
+#   Install Kubeflow, https://www.kubeflow.org/docs/aws/deploy/install-kubeflow/
+
+COMMAND_NAME=$0  # ./install
+VERSION=0.1
+
+BASE_DIR_NAME='kubeflow'
+
+# Default options to create an Amazon EKS cluster
+NUM_NODES=2
+NODE_TYPE="m5.large"  # This cost-effective instance type is recommended by the eksctl manual
+REGION="us-west-2"
+#REGION="us-east-2"
+TIMEOUT="40m"
+K8S_VERSION="1.14"    # This version is tested and verified with Kubeflow.
+                      # 1.15 failed with Jupyter Server
+
+################################################
+#  Procedures to Parse Command Line Arguments  #
+################################################
+showUsage()
+{
+echo "
+${COMMAND_NAME} installs Kubeflow automatically.
+Usage: ${COMMAND_NAME} [cluster name] [option]
+Shell options:
+   -h   help. Type \`${COMMAND_NAME} -h\` for help.
+   -v   version
+   -n   Number of (Worker) Nodes (--nodes for eksctl)
+   -t   Amazon EC2 Instance Type (--node-type for eksctl)
+          https://aws.amazon.com/ec2/instance-types/
+   -r   AWS Region               (--region for eksctl)
+          https://docs.aws.amazon.com/general/latest/gr/rande.html
+   -o   Time-out                 (--timeout for eksctl)
+   -k   Kubernetes version       (--version for eksctl)
+          Use Kubernetes version 1.14 which is tested and verified with Kubeflow.
+          You can install with version 1.15, but the first example with Jupyter Server will fail.
+
+The above options will be mapped to the following options for eksctl.
+  $ eksctl create cluster --version=${K8S_VERSION} --nodes ${NUM_NODES} --region ${REGION} --timeout=${TIMEOUT}
+
+Examples:
+
+   Deploy a Kubeflow cluster with the default settings.
+   $ source install_kubernetes
+     or
+   $ chmod +x install_kubernetes
+   $ ./install_kubernetes
+
+   Equivalently,
+   ${COMMAND_NAME} -n 2 -t $NODE_TYPE -r $REGION -o $TIMEOUT -k $K8S_VERSION
+
+   You may change options. For example, the number of node is 5.
+   ${COMMAND_NAME} -n 5
+
+   PLEASE MASTER HOW TO TERMINATE YOUR CLUSTER BEFORE RUNNING THE FOLLOWING COMMAND.
+   Use AWS CloudFormation to delete created clusters. For details, refer to the official tutorial.
+   Deleting a Stack on the AWS CloudFormation Console
+     https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-delete-stack.html
+
+   Caution: Please do not run the following command unless you know what you're doing.
+            It may become extremely costly if you do not terminate your cluster properly.
+
+   A cluster of ten GPU-enabled or accelerated computing instances
+   ${COMMAND_NAME} -n 10 -t p3.8xlarge  
+
+Bug report: Please report bugs at mrtonnet [at] gmail [dot] com.";
+}
+
+show_version_info()
+{
+   echo "${COMMAND_NAME} v.${VERSION}";
+}
+
+# Command line arguments
+MIN_NUM_OF_ARGS=0;
+if [ $# -lt ${MIN_NUM_OF_ARGS} ];then
+   showUsage;
+   exit 1;
+fi
+
+# Command line options
+COMMAND_LINE_OPTS="hvn:t:r:o:k:";
+
+while getopts ${COMMAND_LINE_OPTS} Option; do
+   case ${Option} in
+      h ) showUsage; exit 1; ;;
+      v ) show_version_info; exit 1; ;;
+      n ) NUM_NODES=${OPTARG}; ;;
+      t ) NODE_TYPE=${OPTARG}; ;;
+      r ) REGION=${OPTARG}; ;;
+      o ) TIMEOUT=${OPTARG}; ;;
+      k ) K8S_VERSION=${OPTARG}; ;;
+      * ) echo "Unknown command line option."; # -${Option}.";
+      	  echo "Type \`${COMMAND_NAME} -h\` for help.";
+      	  exit 1;
+      	;;
+   esac
+done
+shift $((${OPTIND} -1))
+
+#echo "Exiting..."  # For Debugging
+#exit 1             # For Debugging
+
+######################
+#  Install Kubeflow  #
+######################
+function get_eks_cluster_name() {
+
+  # Kubeflow's configuration file is ~/.kube/config.
+  # Get the line with "current-context:" and
+  #   extract the cluster name.
+
+  CURRENT_CONTEXT=`grep "current-context" ~/.kube/config | sed -r 's/:|@|\./ /g'`
+  # current-context: aimldl@ridiculous-sheepdog-1587095845.us-west-2.eksctl.io
+  # current-context  aimldl ridiculous-sheepdog-1587095845 us-west-2 eksctl io
+  # $1               $2     $3                             $4        $5     $6
+
+  EKS_CLUSTER_NAME=`echo ${CURRENT_CONTEXT} | awk '{ print $3; }'`
+  echo ${EKS_CLUSTER_NAME}
+}
+
+# This part fixs some errors in the official installation manual for AWS:
+#   Documentation / Kubeflow on AWS / Deployment / Install Kubeflow
+# at https://www.kubeflow.org/docs/aws/deploy/install-kubeflow/
+# Read this code in parallel with this link.
+# I changed the script to be consistent with the official manual.
+
+echo "-----------------"
+echo "  Prerequisites:  "
+echo "-----------------"
+echo "* kubectl"
+echo "* awscli"
+echo "* eksctl"
+echo "aws-iam-authenticator is not required if awscli is up to date."
+
+read -p "All prerequisites satisfied (y/[n])?"
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+
+  echo "-----------"
+  echo "  kubectl  "
+  echo "-----------"
+  read -p "Install kubectl ([y]/n)?"
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sudo apt-get update && sudo apt-get install -y apt-transport-https
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+    sudo apt-get update
+    sudo apt-get install kubectl
+  fi
+  echo "kubectl `kubectl version --short --client`"
+  kubectl cluster-info
+
+  echo ""
+  echo "----------"
+  echo "  awscli  "
+  echo "----------"
+  echo "version: `aws --version`"
+  echo "aws-iam-authenticator is not required if awscli is up to date."
+  read -p "Upgrade awscli ([y]/n)?"
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    pip install awscli --upgrade --user
+  fi
+
+  echo ""
+  echo "Configure awscli"
+  aws configure
+
+  echo ""
+  echo "----------"
+  echo "  eksctl  "
+  echo "----------"
+
+  read -p "Install eksctl ([y]/n)?"
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo "Reference: eksctl - The official CLI for Amazon EKS, https://github.com/weaveworks/eksctl"
+    curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+
+    sudo mv /tmp/eksctl /usr/local/bin
+    # password must be entered.
+  fi
+  echo "eksctl version=`eksctl version`"
+
+else
+  kubectl cluster-info
+  echo ""
+  echo "kubectl `kubectl version --short --client`"
+  echo "awscli version: `aws --version`"
+  echo "eksctl version: `eksctl version`"
+fi
+echo "End of prerequisites..."
+
+echo ""
+echo "---------------"
+echo "  EKS cluster  "
+echo "---------------"
+
+EKS_CLUSTER_NAME=`get_eks_cluster_name`
+if [ -z ${EKS_CLUSTER_NAME} ]; then  # if empty
+  # An error occurs
+  #   grep: /home/bitnami/.kube/config: No such file or directory
+
+  # Override this variable for the next if statement. 
+  # CAUTION: Without this, the code will run, but a conceptual error occurs.
+  REPLY='y'
+else  # if the variable is not empty
+  echo "There is an existing Amazon EKS cluster: ${EKS_CLUSTER_NAME}"
+  read -p "Create a new cluster ([y]/n)?"
+fi
+
+# If REPLY is y, create a new cluster (default).
+# If REPLY is n, skip the if statement and keep the existing cluster.
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  echo "Creating a new EKS cluster takes 10~15+ minutes."
+  echo "For details, refer to For details, refer to https://eksctl.io/usage/creating-and-managing-clusters/"
+
+  CMD="eksctl create cluster --version=${K8S_VERSION} --nodes ${NUM_NODES} --node-type ${NODE_TYPE} --region ${REGION} --timeout=${TIMEOUT}"
+  echo $CMD
+  eval $CMD
+
+  echo "${EKS_CLUSTER_NAME} is created"
+fi
+
+echo ""
+echo "----------------------------"
+echo "  Prepare your environment  "
+echo "----------------------------"
+
+# To deploy Kubeflow on an existing Amazon EKS cluster,
+#   provide AWS_CLUSTER_NAME, cluster region and worker roles"
+
+echo ""
+
+read -p "Install kfctl ([y]/n)?"
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  echo "1. Download the kfctl v1.0.1 release from the Kubeflow releases page"
+  echo "   https://github.com/kubeflow/kfctl/releases/tag/v1.0.1"
+  wget https://github.com/kubeflow/kfctl/releases/download/v1.0.1/kfctl_v1.0.1-0-gf3edb9b_linux.tar.gz
+
+  echo "2. Unpack the tar ball (and move kfctl to /usr/local/bin)"
+  tar zxvf kfctl_v1.0.1-0-gf3edb9b_linux.tar.gz
+  sudo mv kfctl /usr/local/bin
+
+  echo ""
+  echo "3. Create environment variables to make the deployment process easier"
+  #export PATH=$PATH:"<path to kfctl>"  # PATH is not necessary because kfctl is in /usr/local/bin
+#else
+  # TODO: Show the version if $ kfctl --version is supported.
+fi
+
+# TODO: while true
+
+read -p "Select 1.the standard set-up or 2. DEX authentication ([1]/2)?"
+CONFIG_OPTION=$REPLY
+if [ $REPLY -eq 1 ]; then
+  export CONFIG_URI="https://raw.githubusercontent.com/kubeflow/manifests/v1.0-branch/kfdef/kfctl_aws.v1.0.1.yaml"
+elif [ $REPLY -eq 2 ]; then
+  export CONFIG_URI="https://raw.githubusercontent.com/kubeflow/manifests/v1.0-branch/kfdef/kfctl_aws_cognito.v1.0.1.yaml"
+else
+  echo "Enter either 1 or 2"
+  exit 1
+fi
+
+export AWS_CLUSTER_NAME=${EKS_CLUSTER_NAME}
+export KF_NAME=${AWS_CLUSTER_NAME}
+export BASE_DIR=~/${BASE_DIR_NAME}
+export KF_DIR=${BASE_DIR}/${KF_NAME}
+
+echo "CONFIG_URI       = $CONFIG_URI"
+echo "AWS_CLUSTER_NAME = $AWS_CLUSTER_NAME"
+echo "KF_NAME          = $KF_NAME"
+echo "BASE_DIR         = $BASE_DIR"
+echo "KF_DIR           = $KF_DIR"
+
+echo ""
+echo "--------------------------------------"
+echo "  Set up your Kubeflow configuration  "
+echo "--------------------------------------"
+echo "Download the manifest or configuration file"
+
+mkdir -p ${KF_DIR}
+cd ${KF_DIR}
+
+wget -O kfctl_aws.yaml $CONFIG_URI
+export CONFIG_FILE=${KF_DIR}/kfctl_aws.yaml
+
+echo "-----------------------"
+echo "  Configure Kubeflow  "
+echo "-----------------------"
+echo "Automatically customizing the configuration before deploying Kubeflow."
+
+# The following two lines are added to fix a bug for an error:
+#   MissingRegion: could not find region configuration
+#aws configure set default.region ap-northeast-1
+export AWS_REGION=`aws configure get default.region`  # us-west-2
+export AWS_SDK_LOAD_CONFIG=1
+
+# Automatically edit the text with sed
+echo "$CONFIG_FILE"
+echo "Before:"
+echo "      region: us-west-2"
+echo "      roles:"
+echo "      - eksctl-kubeflow-aws-nodegroup-ng-a2-NodeInstanceRole-xxxxxxx"
+echo "After:"
+echo "      region: ${REGION}"
+echo "      enablePodIamPolicy: true"
+echo "      #roles:"
+echo "      #- eksctl-kubeflow-aws-nodegroup-ng-a2-NodeInstanceRole-xxxxxxx"
+
+# sed substitutes us-west-2 to a new region & add "enablePodIamPolicy: true"
+sed -i'.bak' 's/region: us-west-2/region: ${REGION}\n      enablePodIamPolicy: true/' $CONFIG_FILE
+sed -i 's/roles:/#roles:/' $CONFIG_FILE
+sed -i 's/- eksctl-kubeflow-aws-nodegroup-ng-a2-NodeInstanceRole-xxxxxxx/#- eksctl-kubeflow-aws-nodegroup-ng-a2-NodeInstanceRole-xxxxxxx/' $CONFIG_FILE
+
+echo ""
+echo "-------------------"
+echo "  Deploy Kubeflow  "
+echo "-------------------"
+echo "Kubeflow will be deployed on ${EKS_CLUSTER_NAME}"
+echo "1. Run kfctl to initialize the Kubeflow cluster."
+read -p "Proceed ([y]/n)?"
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  exit 1
+fi
+
+cd ${KF_DIR}
+kfctl apply -V -f ${CONFIG_FILE}
+
+echo "Deployment is finished."
+# 2. Wait for all the resources to become ready in the kubeflow namespace.
+kubectl -n kubeflow get all
+
+echo "Wait for all the resources to become ready in the kubeflow namespace."
+echo "To check it again, run:"
+echo "  $ kubectl -n kubeflow get all"
+echo "    or" 
+echo "  $ kubectl -n kubeflow get all | grep ' 0/'"
+echo "    lists something not ready yet."
+#pod/nvidia-device-plugin-daemonset-kjkp5  0/1     Pending     0          7m23s
+#pod/spark-operatorcrd-cleanup-rkp8h       0/2     Completed   0          9m1s
+
+
+# TODO: When GPU is abled.
+#kubectl get pods -n kube-system -owide | grep nvidia
+
+echo ""
+echo "-------------------------------------"
+echo "  Access Kubeflow central dashboard  "
+echo "-------------------------------------"
+
+# TODO: Add alias to .bashrc to make it permanent.
+if [ $CONFIG_OPTION -eq 1 ]; then
+  source <(kubectl completion bash)
+  export alias kfui="kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80"
+  kfui
+
+  # TODO: Identify the web browser and launch it with http://localhost:8080
+  echo "Open a web browser and enter:"
+  echo "http://localhost:8080"
+elif [ $CONFIG_OPTION -eq 2 ]; then
+  # DEX
+  alias kfui="kubectl get ingress -n istio-system"
+
+else
+  echo "Error: Something is wrong. Exiting..."
+  exit 1
+fi
+
+echo ""
+echo "Click \"Start Setup\" and \"Finish\"."
+echo "Leave \"Namespace Name\" as anonymous."
+echo "You can change the namespace later."
+
+# The end of "Install Kubeflow".
+
+echo ""
+echo "-------------------------------"
+echo "  Deploy Kubernetes dashboard  "
+echo "-------------------------------"
+# TODO: Find the source link and add a comment for this part. 
+
+DOWNLOAD_URL=$(curl -Ls "https://api.github.com/repos/kubernetes-sigs/metrics-server/releases/latest" | jq -r .tarball_url)
+DOWNLOAD_VERSION=$(grep -o '[^/v]*$' <<< $DOWNLOAD_URL)
+curl -Ls $DOWNLOAD_URL -o metrics-server-$DOWNLOAD_VERSION.tar.gz
+mkdir metrics-server-$DOWNLOAD_VERSION
+tar -xzf metrics-server-$DOWNLOAD_VERSION.tar.gz --directory metrics-server-$DOWNLOAD_VERSION --strip-components 1
+kubectl apply -f metrics-server-$DOWNLOAD_VERSION/deploy/1.8+/
+
+echo "Verify the deployment"
+kubectl get deployment metrics-server -n kube-system
+#NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+#metrics-server   1/1     1            1           24s
+
+echo "Deploy the dashboard"
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-rc7/aio/deploy/recommended.yaml
+
+echo "apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: eks-admin
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: eks-admin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: eks-admin
+  namespace: kube-system" > eks-admin-service-account.yaml
+
+echo "Deploy "
+kubectl apply -f eks-admin-service-account.yaml
+
+echo "Authentication token"
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}') | grep "token:" | awk '{ print $2 }'
+
+echo "Starting the k8s dashboard"
+kubectl proxy
+
+echo "http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login"
+
+# TODO: If GPU is enabled.
+# Once the nvidia-device-plugin daemonsets are running, the next command confirms that there are four GPUs in each worker node:
+# Source: https://aws.amazon.com/ko/blogs/opensource/kubeflow-amazon-eks/
+#kubectl get nodes \
+# "-o=custom-columns=NAME:.metadata.name,GPU:.status.allocatable.nvidia\.com/gpu,EC2:.metadata.labels.beta\.kubernetes\.io/instance-type,AZ:.metadata.labels.failure-domain\.beta\.kubernetes\.io/zone"
+#NAME                                           GPU   EC2          AZ
+#ip-192-168-22-50.us-west-2.compute.internal    4     p3.8xlarge   us-west-2b
+#ip-192-168-69-248.us-west-2.compute.internal   4     p3.8xlarge   us-west-2c
+
+# TODO: bitnami aws ec2 instance has an error.
+# Create a new cluster ([y]/n)?y
+# Creating a new EKS cluster takes 10~15+ minutes.
+# For details, refer to https://eksctl.io/usage/creating-and-managing-clusters/
+# [ℹ]  eksctl version 0.17.0
+# [ℹ]  using region us-west-2
+# Error: getting availability zones: getting availability zones for us-west-2: # UnauthorizedOperation: You are not authorized to perform this operation.
+# 	status code: 403, request id: d362c7e5-6885-41cf-bca0-38440706668c
+# grep: /home/bitnami/.kube/config: No such file or directory
+#  is created
+
+# TODO: Update the usage to explain how this script works.
+#$ eksctl create cluster
+#  creates an Amazon EKS (Elastic Kubernetes Service) cluster.
+#The default setting is:
+#  to auto-generate a cluster name, e.g. fabulous-mushroom-1527688624,
+#     with two nodes or m5.large instances
+#     in the us-west-2 region
+#  and use official AWS EKS AMI
+#    with dedicated VPC (check your quotas)
+#    and static AMI resolver
+#Source: https://eksctl.io/introduction/getting-started/
+#EKS supports Kubernetes versions 1.12, 1.13, 1.14 and 1.15 (default).
+#  Source: https://eksctl.io/introduction/getting-started/
+#The recommended Kubernetes version is 1.14. 
+#Kubeflow has been validated and tested on Kubernetes 1.14.
+#  Source: https://www.kubeflow.org/docs/started/k8s/overview/
+

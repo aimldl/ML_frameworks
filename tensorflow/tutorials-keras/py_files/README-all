@@ -1,0 +1,90 @@
+README-all
+
+각 코드의 실행은 README를 참고하시면 됩니다. 아래에서 간략히 설명을 추가했습니다.
+
+GPU 개수에 따라 디렉토리가 다릅니다.
+.
+├── 1gpu_simulations
+├── 2gpus-batch_size_gain
+├── 3gpus-batch_size_gain
+├── 4gpus-batch_size_gain
+├── 4gpus-no_optimization
+├── 5gpus-batch_size_gain
+├── 6gpus-batch_size_gain
+├── 7gpus-batch_size_gain
+└── 8gpus-batch_size_gain
+
+각 디렉토리에 들어가서 
+
+  $ ./batch-run
+
+를 실행하면 7개의 코드에 대해 각각 아래 실험을 수행합니다.
+
+1_mnist-mlp-keras.py
+2_mnist-simple-cnn-keras.py
+3_mnist-cnn-keras.py
+4_fashion_mnist-cnn-keras.py
+5_cifar10-cnn-keras-tf2.py
+6_imdb_movie_review-bidirectional_lstm-keras.py
+7_reuters_newswire-mlp-keras-tf2.py
+
+  $ ./run
+은 각 파일을 실행하는데... 실행한 로그를 logs 디렉토리에 쌓고, 각 로그을 parsing해서 실행성능을 계산합니다. 7개 코드의 결과를 모두 
+  logs/<시작 년월일시>/comparison.out
+에 저장합니다. 예:
+
+logs/2021-06-09_0246/comparison.out
+
+평균 실행 성능을 구하기 위해 Monte Carlo simulation를 수행하기 위해 각 코드를 5번씩 돌립니다.
+
+logs/
+├── 2021-06-04_0409
+├── 2021-06-04_0418
+├── 2021-06-04_0426
+├── 2021-06-04_0434
+└── 2021-06-04_0443
+
+디렉토리 구조는 크게 아래와 같습니다.
+.
+├── 1gpu_simulations
+│   ├── archive
+│   ├── docs
+│   └── logs
+├── 2gpus-batch_size_gain
+│   ├── archive
+│   └── logs
+├── 3gpus-batch_size_gain
+│   ├── archive
+│   └── logs
+├── 4gpus-batch_size_gain
+│   ├── archive
+│   └── logs
+├── 4gpus-no_optimization
+│   └── logs
+├── 5gpus-batch_size_gain
+│   ├── archive
+│   └── logs
+├── 6gpus-batch_size_gain
+│   ├── archive
+│   └── logs
+├── 7gpus-batch_size_gain
+│   ├── archive
+│   └── logs
+└── 8gpus-batch_size_gain
+    ├── archive
+    └── logs
+
+logs 아래에는 5번의 실험 결과를 위한 서브 디렉토리가 존재합니다.
+
+1gpu 케이스의 한 가지 실험에서 생성된 파일은 다음과 같습니다.
+
+gpu_simulations/logs/2021-06-04_0409$ ls
+1_mnist-mlp-keras.csv         2_mnist-simple-cnn-keras.log   4_fashion_mnist-cnn-keras.gpu  6_imdb_movie_review-bidirectional_lstm-keras.csv  7_reuters_newswire-mlp-keras-tf2.log
+1_mnist-mlp-keras.gpu         3_mnist-cnn-keras.csv          4_fashion_mnist-cnn-keras.log  6_imdb_movie_review-bidirectional_lstm-keras.gpu  comparison.out
+1_mnist-mlp-keras.log         3_mnist-cnn-keras.gpu          5_cifar10-cnn-keras-tf2.csv    6_imdb_movie_review-bidirectional_lstm-keras.log  run.log
+2_mnist-simple-cnn-keras.csv  3_mnist-cnn-keras.log          5_cifar10-cnn-keras-tf2.gpu    7_reuters_newswire-mlp-keras-tf2.csv
+2_mnist-simple-cnn-keras.gpu  4_fashion_mnist-cnn-keras.csv  5_cifar10-cnn-keras-tf2.log    7_reuters_newswire-mlp-keras-tf2.gpu
+
+*.log: TensorFlow 출력 로그 (훈련시간 포함)
+*.csv파일: 각 경우에 대한 GPU 및 메모리 사용량
+*.gpu: GPU utilization만 발췌

@@ -1,0 +1,596 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>README</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+svg[id^="mermaidChart"] { line-height: 1em; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-node'><h1><a name="kubeflow" class="md-header-anchor"></a><span>Kubeflow</span></h1><blockquote><p><span>Kubeflow = Kubernetes + Machine Learning Flow</span></p></blockquote><h2><a name="kubeflow에-접속하기" class="md-header-anchor"></a><span>Kubeflow에 접속하기</span></h2><p><span>설치 완료 후</span></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="bash"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-def">$ kfui</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Forwarding from <span class="cm-number">127</span>.0.0.1:8080 <span class="cm-attribute">-</span>&gt; <span class="cm-number">80</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Forwarding from [::1]:8080 <span class="cm-attribute">-</span>&gt; <span class="cm-number">80</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 69px;"></div><div class="CodeMirror-gutters" style="display: none; height: 69px;"></div></div></div></pre><p><img src="how_to/images/kubeflow-dashboard-kfui.png"></p><p><span>결과 메세지는 8080포트를 80포트로 포워딩 했다는 것을 의미합니다.</span></p><p><span>웹브라우저 주소창에</span></p><blockquote><p><a href='http://localhost:8080/' target='_blank' class='url'>http://localhost:8080/</a></p></blockquote><h2><a name="소개하기" class="md-header-anchor"></a><span>소개하기</span></h2><p><span>Kubeflow는 쿠버네티스 (Kubernetes)를 위한 머신러닝 툴킷 (Machine Learning toolkit)으로 머신러닝 업무에 필요한  개발 - 빌드 - 훈련 - 배포의 머신러닝 파이프라인 (Machine Learning Pipeline)을 위한 플랫폼 (Platform) 입니다. 쿠버네티스는 컨테이너 오케스트레이션 (Container Orchestration)을 위한 오픈소스 시스템으로, 주로 시스템 관리자의 관심영역이였습니다. 머신러닝 개발자나 데이터 과학자는 시스템 관리자가 설치해놓은 시스템을 이용하는 사용자의 입장에 그쳤습니다. Kubeflow의 등장으로 쿠버네티스에 클러스터를 설치하고 머신러닝의 개발, 학습, 배포하는 머신러닝 워크플로우 (Machine Learning Workflow)에 변화가 생겼습니다.</span></p><p><span>쿠버네티스는 다수의 컴퓨터/서버의 자원을 다수의 사용자가 효율적으로 사용하기 위한 다양한 기능을 제공합니다. 예를 들어 n대의 슈퍼컴퓨터를 n명이 한 대씩 나눠서 쓰고 있다고 가정합시다. 만약 한 번에 몇 주씩 돌아가는 머신러닝 훈련을 한다고 하더라도, 훈련결과 확인이나 실험을 준비하기 위해 중간중간에 쉬는 시간이 있을 것입니다. 즉, 365일 24시간 컴퓨터를 돌리기는 힘들기 때문에 비싼 연산자원이 낭비됩니다. 쿠버네티스는 n대의 수퍼컴퓨터가 돌아가는 상황을 주시하고, 사용자가 연산자원을 요청할 때 자동으로 할당하는 등의 스케줄링을 하며 전체 연산 자원을 보다 효율적으로 쓸 수 있게 해줍니다. 이것은 시스템 인프라를 관리하는 도구이므로 쿠버네티스는 주로 시스템 관리자의 관심영역이였습니다.</span></p><p><img src="images/kubeflow-installation-core_critical_user_journey.png"></p><p><span>기존에는 개별적으로 진행해야 했던 작업들을 묶어서 할 수 있으므로, 사용자 입장에서 머신러닝을 위한 CI/CD (Continuous Integration/Continuous Deployment) 도구로 이해될 수 있습니다. 일반적으로 상용제품 레벨의 머신러닝 제품을 개발하는데 있어, 역할은 크게 (1) 데이터 개발, (2) 모델 개발, (3) 배포/운용의 3단계로 나뉩니다. Kubeflow는 (1) 데이터 개발을 제외한 나머지 부분을 자동으로 수행할 수 있게 도와줍니다. AWS에 비유하자면 SageMaker의 워크플로우와 유사합니다.</span></p><p><span>이러한 머신러닝 업무 단계의 자동화를 연구하는 AutoML (Automatic Machine Learning)이라는 분야가 있습니다. 대표적인 오픈소스 Python 라이브러리로 h2o, auto-sklearn, TPOT 등이 있습니다. 이런 라이브러리는 (2) 모델 개발을 자동화하지만 (3) 배포/운용는 지원하지 않습니다.</span></p><p><span>Kubeflow에 관한 상세한 내용은 </span><a href='https://www.kubeflow.org/'><span>공식 홈페이지</span></a><span> (</span><a href='https://www.kubeflow.org/' target='_blank' class='url'>https://www.kubeflow.org/</a><span>)를 참고하세요.</span></p><blockquote><p><span>Q: TFX (TensorFlow Extended)와의 차이는?</span></p><p><span>A: Kubeflow는 TFX에 바탕을 둔 multi-architecture, multi-cloud framework입니다.</span></p><p><strong><em><span>History</span></em></strong></p><p><span>Kubeflow started as an open sourcing of the way Google ran </span><a href='https://www.tensorflow.org/'><span>TensorFlow</span></a><span> internally, based on a pipeline called </span><a href='https://www.tensorflow.org/tfx/'><span>TensorFlow Extended</span></a><span>. It began as just a simpler way to run TensorFlow jobs on Kubernetes, but has since expanded to be a multi-architecture, multi-cloud framework for running entire machine learning pipelines.</span></p><p><span>Source: </span><a href='https://www.kubeflow.org/docs/about/kubeflow/'><span>An introduction to Kubeflow</span></a></p></blockquote><h2><a name="introduction-to-kubeflow---kubeflow-101httpsyoutubectzardgbiww" class="md-header-anchor"></a><a href='https://youtu.be/cTZArDgbIWw'><span>Introduction to Kubeflow - Kubeflow 101</span></a></h2><p><img src="images/kubeflow101-machine_learning_workflow.png"></p><p><img src="images/kubeflow101-Each ML State is an Independent System.png"></p><p><img src="images/kubeflow101-Each ML State is an Independent System-workflow.png"></p><p><img src="images/kubeflow101-portability-you can run your ML project anywhere you're running kubeflow.png"></p><p><img src="images/kubeflow101-portability-kubeflow_and_k8s.png"></p><p><img src="images/"></p><p><span>[TODO] 이런 역할을 해주는 다양한 프로그램이 있는데, 비교를 하는게 좋을 듯...</span></p><p><span>예: MLFlow</span></p><p><a href='https://mlflow.org/docs/latest/projects.html#run-an-mlflow-project-on-kubernetes-experimental'><span>Run an MLflow Project on Kubernetes (experimental)</span></a></p><p><span>AutoML의 논문도 넣고... </span></p><h2><a name="kubeflow-versioning-policieshttpswwwkubefloworgdocsreferenceversion-policy-in-kubeflow-v102" class="md-header-anchor"></a><a href='https://www.kubeflow.org/docs/reference/version-policy/'><span>Kubeflow Versioning Policies</span></a><span> (in Kubeflow v1.0.2)</span></h2><p><span>For the full information on the status and application version refer to </span><a href='https://www.kubeflow.org/docs/reference/version-policy/#kubeflow-application-matrix'><span>Kubeflow application</span></a><span>  and </span><a href='https://www.kubeflow.org/docs/reference/version-policy/#kubeflow-sdks-and-clis'><span>Kubeflow SDKs and CLIs</span></a><span>.</span></p><figure><table><thead><tr><th><span>Application</span></th><th><span>Status</span></th><th><span>Version</span></th></tr></thead><tbody><tr><td><a href='https://www.kubeflow.org/docs/components/central-dash/overview/'><span>Central dashboard: Kubeflow UI</span></a><span> (</span><a href='https://github.com/kubeflow/kubeflow/tree/master/components/centraldashboard'><span>GitHub</span></a><span>)</span></td><td><span>Stable</span></td><td><span>1.0.0</span></td></tr><tr><td><a href='https://www.kubeflow.org/docs/components/hyperparameter-tuning/overview/'><span>Hyperparameter tuning: Katib</span></a><span> (</span><a href='https://github.com/kubeflow/katib'><span>GitHub</span></a><span>)</span></td><td><span>Beta</span></td><td><span>v1alpha3</span></td></tr><tr><td><a href='https://www.kubeflow.org/docs/components/serving/kfserving/'><span>KFServing</span></a><span> (</span><a href='https://github.com/kubeflow/kfserving'><span>GitHub</span></a><span>)</span></td><td><span>Beta</span></td><td><span>v0.2.2</span></td></tr><tr><td><a href='https://www.kubeflow.org/docs/components/misc/metadata/'><span>Metadata</span></a><span> (</span><a href='https://github.com/kubeflow/metadata'><span>GitHub</span></a><span>)</span></td><td><span>Beta</span></td><td><span>0.2.1</span></td></tr><tr><td><a href='https://www.kubeflow.org/docs/components/training/mpi/'><span>MPI training: MPI operator</span></a><span> (</span><a href='https://github.com/kubeflow/mpi-operator'><span>GitHub</span></a><span>)</span></td><td><span>Alpha</span></td><td>&nbsp;</td></tr><tr><td><a href='https://www.kubeflow.org/docs/notebooks/why-use-jupyter-notebook/'><span>Notebook web app</span></a><span> (</span><a href='https://github.com/kubeflow/kubeflow/tree/master/components/jupyter-web-app'><span>GitHub</span></a><span>)</span></td><td><span>Stable</span></td><td><span>1.0.0</span></td></tr><tr><td><a href='https://www.kubeflow.org/docs/notebooks/why-use-jupyter-notebook/'><span>Notebook controller</span></a><span> (</span><a href='https://github.com/kubeflow/kubeflow/tree/master/components/notebook-controller'><span>GitHub</span></a><span>)</span></td><td><span>Stable</span></td><td><span>1.0.0</span></td></tr><tr><td><a href='https://www.kubeflow.org/docs/pipelines/overview/pipelines-overview/'><span>Pipelines</span></a><span> (</span><a href='https://github.com/kubeflow/pipelines'><span>GitHub</span></a><span>)</span></td><td><span>Beta</span></td><td><span>0.2.0</span></td></tr><tr><td><a href='https://www.kubeflow.org/docs/components/training/pytorch/'><span>PyTorch training: PyTorch operator</span></a><span> (</span><a href='https://github.com/kubeflow/pytorch-operator'><span>GitHub</span></a><span>)</span></td><td><span>Stable</span></td><td><span>1.0.0</span></td></tr><tr><td><a href='https://www.kubeflow.org/docs/components/serving/seldon'><span>Seldon Core Serving</span></a><span> (</span><a href='https://github.com/SeldonIO/seldon-core'><span>GitHub</span></a><span>)</span></td><td><span>Stable</span></td><td><span>1.0.1</span></td></tr><tr><td><a href='https://www.kubeflow.org/docs/components/training/tftraining/'><span>TensorFlow training: TFJob operator</span></a><span> (</span><a href='https://github.com/kubeflow/tf-operator'><span>GitHub</span></a><span>)</span></td><td><span>Stable</span></td><td><span>1.0.0</span></td></tr><tr><td><span>XGBoost training: XGBoost operator (</span><a href='https://github.com/kubeflow/xgboost-operator'><span>GitHub</span></a><span>)</span></td><td><span>Alpha</span></td><td>&nbsp;</td></tr><tr><td><strong><span>SDK / CLI</span></strong></td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td><a href='https://www.kubeflow.org/docs/fairing/fairing-overview/'><span>Fairing</span></a><span> (</span><a href='https://github.com/kubeflow/fairing'><span>GitHub</span></a><span>)</span></td><td><span>Beta</span></td><td><span>0.7.1</span></td></tr><tr><td><a href='https://www.kubeflow.org/docs/other-guides/kustomize/'><span>kfctl</span></a><span> (</span><a href='https://github.com/kubeflow/kfctl'><span>GitHub</span></a><span> )</span></td><td><span>Stable</span></td><td><span>1.0.0</span></td></tr><tr><td><a href='https://www.kubeflow.org/docs/pipelines/sdk/sdk-overview/'><span>Kubeflow Pipelines SDK</span></a><span> (</span><a href='https://github.com/kubeflow/pipelines'><span>GitHub</span></a><span>)</span></td><td><span>Beta</span></td><td><span>0.2.0</span></td></tr></tbody></table></figure><h2><a name="install--설치하기" class="md-header-anchor"></a><span>Install / 설치하기</span></h2><p><span>Kubeflow의 설치 과정은 아직까지 상당히 힘듭니다. AWS에 설치하는 경우 아직 버그가 리포팅 되고 있어서 난관을 넘어야 합니다. </span></p><ul><li><a href='https://www.kubeflow.org/docs/started/getting-started/'><span>Installing Kubeflow</span></a></li><li><span>The official installation manual &quot;</span><a href='https://www.kubeflow.org/docs/aws/deploy/install-kubeflow/'><span>Instructions for deploying Kubeflow on AWS with the shell</span></a><span>&quot;has a couple of defects. Check </span><a href='troubleshoot/MissingRegion could not find region configuration.md'><span>troubleshoot/MissingRegion could not find region configuration.md</span></a><span> if you encounter MissingRegion error after running:</span></li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="bash"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-def">$ kfctl</span> apply <span class="cm-attribute">-V</span> <span class="cm-attribute">-f</span> <span class="cm-def">${CONFIG_FILE}</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><hr /><p><span>다음: </span><a href='INSTALL-AWS.md'><span>AWS에 Kubeflow 설치하기</span></a></p><p><span>p.s. My opinion.</span></p><p><span>In my case, I installed Kubeflow on AWS and this path was a bumpy road. I had to fix many things to make the my-first-notebook work. I had to write a Bash script automating the installation process because I had to try this and that over and over for weeks. The official installation documentation is confusing at first. Some parts are inaccurate and outdated. To make the installation itself successfully, well, I had to collect the correct information piece-by-piece and move forward little by little.</span></p></div>
+</body>
+</html>

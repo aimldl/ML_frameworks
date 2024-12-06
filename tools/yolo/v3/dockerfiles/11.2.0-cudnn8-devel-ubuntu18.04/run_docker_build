@@ -1,0 +1,12 @@
+#!/bin/bash
+# run_docker_build
+
+export IMAGE_NAME='nvidia/cuda'
+docker build -t baseimage-darknet --build-arg IMAGE_NAME=$IMAGE_NAME .
+#docker build -t baseimage-darknet --build-arg IMAGE_NAME='nvidia/cuda' .
+docker run -it baseimage-darknet bash
+
+# To check NVCC, CUDA, & CUDNN, run:
+#   # nvcc --version
+#   # cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2
+#   # nvidia-smi

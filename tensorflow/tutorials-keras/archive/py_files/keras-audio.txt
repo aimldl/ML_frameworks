@@ -1,0 +1,64 @@
+keras-audio.txt
+
+# Problem
+Keras doesn't provide a good search results for audio as you can see as follows.
+
+Search Results: audio
+What does "sample", "batch", "epoch" mean?
+Below are some common definitions that are necessary to know and understand to correctly utilize Keras: Sample : one element of a dataset. Example: one image is a sample in a convolutional network Exa
+
+Conv1D
+keras.layers.Conv1D(filters, kernel_size, strides=1, padding='valid', data_format='channels_last', dilation_rate=1, activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initialize
+
+FAQ
+Keras FAQ: Frequently Asked Keras Questions How should I cite Keras? How can I run Keras on GPU? How can I run a Keras model on multiple GPUs? What does "sample", "batch", "epoch" mean? How can I save
+
+Convolutional Layers
+[source] Conv1D keras.layers.Conv1D(filters, kernel_size, strides=1, padding='valid', data_format='channels_last', dilation_rate=1, activation=None, use_bias=True, kernel_initializer='glorot_uniform',
+
+Built with MkDocs using a theme provided by Read the Docs.
+
+
+## Google search: keras preprocessing audio
+## Ref. document: Beginner's Guide to Audio Data, https://www.kaggle.com/fizzbuzz/beginner-s-guide-to-audio-data
+
+## Ref. document: kapre: Keras Audio Preprocessors, https://github.com/keunwoochoi/kapre
+
+### Using Mel-spectrogram
+from keras.models import Sequential
+from kapre.time_frequency import Melspectrogram
+from kapre.utils import Normalization2D
+from kapre.augmentation import AdditiveNoise
+
+# 6 channels (!), maybe 1-sec audio signal, for an example.
+input_shape = (6, 44100)
+sr = 44100
+model = Sequential()
+# A mel-spectrogram layer
+model.add(Melspectrogram(n_dft=512, n_hop=256, input_shape=input_shape,
+                         padding='same', sr=sr, n_mels=128,
+                         fmin=0.0, fmax=sr/2, power_melgram=1.0,
+                         return_decibel_melgram=False, trainable_fb=False,
+                         trainable_kernel=False,
+                         name='trainable_stft'))
+# Maybe some additive white noise.
+model.add(AdditiveNoise(power=0.2))
+# If you wanna normalise it per-frequency
+model.add(Normalization2D(str_axis='freq')) # or 'channel', 'time', 'batch', 'data_sample'
+# After this, it's just a usual keras workflow. For example..
+# Add some layers, e.g., model.add(some convolution layers..)
+# Compile the model
+model.compile('adam', 'categorical_crossentropy') # if single-label classification
+# train it with raw audio sample inputs
+x = load_x() # e.g., x.shape = (10000, 6, 44100)
+y = load_y() # e.g., y.shape = (10000, 10) if it's 10-class classification
+# and train it
+model.fit(x, y)
+# Done!
+
+### More examples on example folder
+kapre/examples/example_codes.ipynb, https://github.com/keunwoochoi/kapre/blob/master/examples/example_codes.ipynb
+kapre/examples/prepare audio.ipynb, https://github.com/keunwoochoi/kapre/blob/master/examples/prepare%20audio.ipynb
+
+
+

@@ -1,0 +1,68 @@
+
+
+
+
+chmod +x install_darknet-cpu_only 
+
+./install_darknet-cpu_only
+
+cd darknet
+
+sed -i 's/GPU=0/GPU=1/' Makefile
+
+head -n 8 Makefile 
+
+make
+
+
+
+## Verify
+
+./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg
+
+cp darknet darknet.gpu
+
+
+
+sed -i 's/GPU=0/GPU=1/' Makefile
+sed -i 's/CUDNN=0/CUDNN=1/' Makefile
+
+head -n 8 Makefile 
+
+make
+
+./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg
+
+cp darknet darknet.gpu_cudnn
+
+## OpenCV
+
+### Install OpenCV
+
+#### in ~/darknet
+
+chmod +x install_opencv_in_linux 
+
+./install_opencv_in_linux
+
+
+
+chmod +x install_opencv_contrib
+
+./install_opencv_contrib
+
+
+
+sed -i 's/GPU=0/GPU=1/' Makefile
+sed -i 's/CUDNN=0/CUDNN=1/' Makefile
+
+sed -i 's/OPENCV=0/OPENCV=1/' Makefile
+
+head -n 8 Makefile 
+
+make
+
+./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg
+
+cp darknet darknet.gpu_cudnn_opencv
+

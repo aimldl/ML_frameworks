@@ -1,0 +1,955 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="text/css" http-equiv="Content-Style-Type">
+<title>NVIDIA CUDA Installation Guide for Linux</title>
+</head>
+<body>
+<h1 align="center" class="root">
+<a href="http://docs.nvidia.com/cuda/cuda-installation-guide-linux/#axzz4VZnqTJ2A" name="6d2g3p4ctf7n8nhset61ba6ou2">NVIDIA CUDA Installation Guide for Linux</a>
+</h1>
+<div align="center" class="globalOverview">
+<img src="NVIDIA CUDA Installation Guide for Linux_files/images/NVIDIA CUDA Installation Guide for Linux.jpg"></div>
+<h2 class="topic">
+<a name="3e93jbn1do8389vbf8iphvsvq5">README</a>
+</h2>
+<h3 class="topic">
+<a name="6ubge36hd4daj75o0l90pm29p6">&nbsp;To-do</a>
+</h3>
+<h3 class="topic">
+<a name="2upvbcdgfo0vbobv9trks64899">&nbsp;&nbsp;Start from "4. Runfile Installation"</a>
+</h3>
+<h3 class="topic">
+<a name="6qb9c4dbqp6ufiqt4ganscso9s">&nbsp;Start reading from 7.2.4. Install Nsight Eclipse Plugins</a>
+</h3>
+<h2 class="topic">
+<a name="30btf5h5ecv2ugn9llo08q2toj">1. Introduction</a>
+</h2>
+<h3 class="topic">
+<a name="6fpgo1sqqvoaiekcg1adubv1tg">&nbsp;1.1. System Requirements</a>
+</h3>
+<h3 class="topic">
+<a name="6egisv4vglcqtslbasvcah0n2u">&nbsp;&nbsp;CUDA-capable GPU</a>
+</h3>
+<h3 class="topic">
+<a name="00d1dgl5hudvk3o3s0rhd9r4q1">&nbsp;&nbsp;A supported version of Linux with a gcc compiler and toolchain</a>
+</h3>
+<h3 class="topic">
+<a name="3lg884umssrfsf0u4evppt923k">&nbsp;&nbsp;NVIDIA CUDA Toolkit</a>
+</h3>
+<h3 class="topic">
+<a name="331fdc1t7peogoo7k3m1ohujun">&nbsp;1.2. About This Document</a>
+</h3>
+<h3 class="topic">
+<a name="0l5g20ps0pcrfrspq3vfd5uu8r">&nbsp;&nbsp;Note: use the sudo prefix for all necessary commands</a>
+</h3>
+<h2 class="topic">
+<a name="13o9l4gq8ur17997v84tigqrsu">2. Pre-installation Actions</a>
+</h2>
+<h3 class="topic">
+<a name="72i05rspmfkdi0lh94640vqbf5">&nbsp;2.1. Verify You Have a CUDA-Capable GPU</a>
+</h3>
+<h3 class="topic">
+<a name="0uio2pv0b312qe8k6bb4e19cud">&nbsp;&nbsp;$ lspci | grep -i nvidia&#13;
+06:00.0 3D controller: NVIDIA Corporation Device 1eb8 (rev a1)</a>
+</h3>
+<h3 class="topic">
+<a name="06erm5pide3v9rs160f4g6o90t">&nbsp;2.2. Verify You Have a Supported Version of Linux</a>
+</h3>
+<h3 class="topic">
+<a name="3769945qer15om25orjh0qkuoa">&nbsp;&nbsp;$ uname -m &amp;&amp; cat /etc/*release
+x86_64
+Red Hat Enterprise Linux Workstation release 6.0 (Santiago)</a>
+</h3>
+<h3 class="topic">
+<a name="0tk7c6h28jn6b5ekjjipqou5us">&nbsp;2.3. Verify the System Has gcc Installed</a>
+</h3>
+<h3 class="topic">
+<a name="65akvt7stlon4c3t1jev20927v">&nbsp;&nbsp;$ gcc --version</a>
+</h3>
+<h3 class="topic">
+<a name="5nubsihuga38m6ervd830iem0e">&nbsp;2.4. Verify the System has the Correct Kernel Headers and Development Packages Installed</a>
+</h3>
+<h3 class="topic">
+<a name="1j2kj4i5kcprh10jndttbhnjks">&nbsp;&nbsp;$ uname -r</a>
+</h3>
+<h3 class="topic">
+<a name="6pa1rh9kpcfpo17oiqbv4a1k10">&nbsp;&nbsp;Ubuntu</a>
+</h3>
+<h3 class="topic">
+<a name="2utoh8or25tibir0mr83prp7l3">&nbsp;&nbsp;&nbsp;the.kim@ubuntu-gpu-home:~$ sudo apt-get install linux-headers-$(uname -r)</a>
+</h3>
+<h3 class="topic">
+<a name="3sc4uctco39gqpassq0rauq1dp">&nbsp;&nbsp;&nbsp;&nbsp;Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+linux-headers-4.4.0-116-generic is already the newest version (4.4.0-116.140).
+linux-headers-4.4.0-116-generic set to manually installed.
+0 upgraded, 0 newly installed, 0 to remove and 32 not upgraded.</a>
+</h3>
+<h3 class="topic">
+<a name="1ala7dics62ehkrk5tn18r91sm">&nbsp;&nbsp;RHEL/CentOS</a>
+</h3>
+<h3 class="topic">
+<a name="0d2k71n5o58ckrnvgi4opnd9qk">&nbsp;&nbsp;&nbsp;$ sudo yum install kernel-devel-$(uname -r) kernel-headers-$(uname -r)</a>
+</h3>
+<h3 class="topic">
+<a name="1d1v0ggjdgl9h7h3iif5pfp9f0">&nbsp;&nbsp;Fedora</a>
+</h3>
+<h3 class="topic">
+<a name="7c02re0pgs83fmd3g4qaqh307d">&nbsp;&nbsp;&nbsp;$ sudo dnf install kernel-devel-$(uname -r) kernel-headers-$(uname -r)</a>
+</h3>
+<h3 class="topic">
+<a name="1jci3q3frj7oo0fc0b7sc0amgc">&nbsp;&nbsp;OpenSUSE/SLES</a>
+</h3>
+<h3 class="topic">
+<a name="7dh578opdurbs0rj3e48nhbmm6">&nbsp;&nbsp;&nbsp;$ uname -r
+3.16.6-2-default</a>
+</h3>
+<h3 class="topic">
+<a name="5oobsbgdff0srip72t5t50f41d">&nbsp;&nbsp;&nbsp;In this example, the version is 3.16.6-2 and the variant is default. The kernel headers and development packages can then be installed with the following command, replacing &lt;variant&gt; and &lt;version&gt; with the variant and version discovered from the previous uname command:</a>
+</h3>
+<h3 class="topic">
+<a name="6prrsj9gsmbh0jffn6gnt6ta2p">&nbsp;&nbsp;&nbsp;$ sudo zypper install kernel-&lt;variant&gt;-devel=&lt;version&gt;</a>
+</h3>
+<h3 class="topic">
+<a name="3h769b8vb0sqdmkl52t3a6i3ho">&nbsp;2.5. Choose an Installation Method</a>
+</h3>
+<h3 class="topic">
+<a name="7eoa6mu3tuqn9g9lvl71qd61nd">&nbsp;&nbsp;distribution-specific packages (RPM and Deb packages)</a>
+</h3>
+<h3 class="topic">
+<a name="63nr26c235lqthjquamf23av6m">&nbsp;&nbsp;or a distribution-independent package (runfile packages)</a>
+</h3>
+<h3 class="topic">
+<a name="2r53v0tf429suqakms9dvfjom8">&nbsp;2.6. Download the NVIDIA CUDA Toolkit</a>
+</h3>
+<h3 class="topic">
+<a href="http://developer.nvidia.com/cuda-downloads" name="2audf76r6au0ve8iaponn9k4br">&nbsp;&nbsp;http://developer.nvidia.com/cuda-downloads</a>
+</h3>
+<h3 class="topic">
+<a name="65ja8fp961bvle1peg87uedo0o">&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img height="307" src="NVIDIA CUDA Installation Guide for Linux_files/2kmhu8rp7ejb24ki2su1ko896f.png" width="679"></p>
+<h3 class="topic">
+<a name="65f4hel0mejoaorf0nrpckrj45">&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img height="517" src="NVIDIA CUDA Installation Guide for Linux_files/34frjenjlh2bni04j81c8jq0qr.png" width="665"></p>
+<h3 class="topic">
+<a name="380c6e0tnco7d1ni4a4g0fca24">&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img height="108" src="NVIDIA CUDA Installation Guide for Linux_files/5fjs548b7kluogrnm4hg1i9jpr.png" width="664"></p>
+<h3 class="topic">
+<a name="5d5pl8v1ambg40mnjdtji3td6m">&nbsp;&nbsp;Installation Instructions</a>
+</h3>
+<h3 class="topic">
+<a name="527btbc959mnb0pt2di0hn2i81">&nbsp;&nbsp;&nbsp;`sudo dpkg -i cuda-repo-ubuntu1604-9-1-local_9.1.85-1_amd64.deb`</a>
+</h3>
+<h3 class="topic">
+<a name="0barcu05uoh34789l5knsqdq8b">&nbsp;&nbsp;&nbsp;`sudo apt-key add /var/cuda-repo-&lt;version&gt;/7fa2af80.pub`</a>
+</h3>
+<h3 class="topic">
+<a name="2q30a5v03m5jces0trhqcgjh2p">&nbsp;&nbsp;&nbsp;&nbsp;problem</a>
+</h3>
+<h3 class="topic">
+<a name="78m7l6stvlvkv7smli36s6ln6d">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img height="56" src="NVIDIA CUDA Installation Guide for Linux_files/1a9d3pgbv5818dbiqdhd7m9a06.png" width="722"></p>
+<h3 class="topic">
+<a name="13kff7klt49r4uekg10efj1u1j">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the.kim@ubuntu-gpu-home:~/Downloads$ sudo apt-key add /var/cuda-repo-9-1/7fa2af80.pub</a>
+</h3>
+<h3 class="topic">
+<a name="0pk4br1gh10tsbm3guc9qnshlg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gpg: can't open `/var/cuda-repo-9-1/7fa2af80.pub': No such file or directory</a>
+</h3>
+<h3 class="topic">
+<a name="4bplmn2ickb6i82pjf9qnsaun6">&nbsp;&nbsp;&nbsp;`sudo apt-get update`</a>
+</h3>
+<h3 class="topic">
+<a name="31sr6mbs2copiujmjt5rvdvncj">&nbsp;&nbsp;&nbsp;`sudo apt-get install cuda`</a>
+</h3>
+<h3 class="topic">
+<a name="350alk8ho755cb260tnjmeje2b">&nbsp;&nbsp;&nbsp;Other installation options are available in the form of meta-packages. For example, to install all the library packages, replace "cuda" with the "cuda-libraries-9-1" meta package. For more information on all the available meta packages click here.</a>
+</h3>
+<h3 class="topic">
+<a name="7hutuoc4is5nv8081geogb04lj">&nbsp;&nbsp;Download Verification</a>
+</h3>
+<h3 class="topic">
+<a name="7av93reapqolov55v7bngip017">&nbsp;&nbsp;&nbsp;$ md5sum &lt;file&gt;</a>
+</h3>
+<h3 class="topic">
+<a name="7ckn6fn9s92fbf75rbsfcdig10">&nbsp;&nbsp;&nbsp;to calculate the MD5 checksum of the downloaded file</a>
+</h3>
+<h3 class="topic">
+<a href="http://developer.nvidia.com/cuda-downloads/checksums" name="66sb338e2tnf0513134cctk9qd">&nbsp;&nbsp;&nbsp;http://developer.nvidia.com/cuda-downloads/checksums</a>
+</h3>
+<h3 class="topic">
+<a name="4rm9hfj3osbe2esdbj7ajva8m5">&nbsp;2.7. Handle Conflicting Installation Methods</a>
+</h3>
+<h3 class="topic">
+<a name="5gqofk5lom4v0e4vij733g6pan">&nbsp;&nbsp;Use the following command to uninstall a Toolkit runfile installation:
+$ sudo /usr/local/cuda-X.Y/bin/uninstall_cuda_X.Y.pl
+Use the following command to uninstall a Driver runfile installation:
+$ sudo /usr/bin/nvidia-uninstall
+Use the following commands to uninstall a RPM/Deb installation:
+$ sudo yum remove &lt;package_name&gt;                      # Redhat/CentOS
+$ sudo dnf remove &lt;package_name&gt;                      # Fedora
+$ sudo zypper remove &lt;package_name&gt;                   # OpenSUSE/SLES
+$ sudo apt-get --purge remove &lt;package_name&gt;          # Ubuntu</a>
+</h3>
+<h3 class="topic">
+<a name="3sbas1netotip81muhiefkg9af">&nbsp;&nbsp;I skipped this process because no driver will cause huge problem.</a>
+</h3>
+<h2 class="topic">
+<a name="3inht829lfc75t521e6qd7qbbq">3. Package Manager Installation</a>
+</h2>
+<h3 class="topic">
+<a name="6ip0a8gfqi15be5o7cpbplngne">&nbsp;Basic instructions can be found in the Quick Start Guide</a>
+</h3>
+<h3 class="topic">
+<a href="http://docs.nvidia.com/cuda/cuda-quick-start-guide/index.html#linux" name="7qeqtuf8fi85o3u79gdkr4q1l4">&nbsp;&nbsp;http://docs.nvidia.com/cuda/cuda-quick-start-guide/index.html#linux</a>
+</h3>
+<h3 class="topic">
+<a name="068rneaoss7gbebqmdh4bainf8">&nbsp;3.1. Overview</a>
+</h3>
+<h3 class="topic">
+<a name="45fu9eto5jqtg3lans1iabk40i">&nbsp;&nbsp;Distribution-specific instructions detail how to install CUDA:</a>
+</h3>
+<h3 class="topic">
+<a name="5n3uornokb14s5vd69nn3boo3k">&nbsp;&nbsp;Redhat/CentOS
+Fedora
+SLES
+OpenSUSE
+Ubuntu</a>
+</h3>
+<h3 class="topic">
+<a name="7nhgn8fv5prd1si88u5fcluqft">&nbsp;3.2. Redhat/CentOS</a>
+</h3>
+<h3 class="topic">
+<a name="3mq80vidmdjgn0vphg3hc1k9or">&nbsp;3.3. Fedora</a>
+</h3>
+<h3 class="topic">
+<a name="19aac3lrqa4geg8leumimslems">&nbsp;3.4. SLES</a>
+</h3>
+<h3 class="topic">
+<a name="0449n43volbtcggpaagnk6p1qv">&nbsp;3.5. OpenSUSE</a>
+</h3>
+<h3 class="topic">
+<a name="38h2p7s6t430r9mglk7ivugjje">&nbsp;3.6. Ubuntu</a>
+</h3>
+<h3 class="topic">
+<a name="6p9d9u6vd5au1j42dn6rajmfo7">&nbsp;&nbsp;Perform the pre-installation actions.</a>
+</h3>
+<h3 class="topic">
+<a name="7jp50bdh02ter4tdcs64v88c85">&nbsp;&nbsp;Install repository meta-data</a>
+</h3>
+<h3 class="topic">
+<a name="4u15k7262l5q7sj8p5351aus7c">&nbsp;&nbsp;$ sudo dpkg -i cuda-repo-&lt;distro&gt;_&lt;version&gt;_&lt;architecture&gt;.deb</a>
+</h3>
+<h3 class="topic">
+<a name="407jvof49srcm74cjoehgt0tb4">&nbsp;&nbsp;&nbsp;the.kim@ubuntu-gpu-home:~/Downloads$ sudo dpkg -i cuda-repo-ubuntu1604-9-1-local_9.1.85-1_amd64.deb</a>
+</h3>
+<h3 class="topic">
+<a name="5jcea23m9o5v7dol8h0mbm8p02">&nbsp;&nbsp;&nbsp;&nbsp;Selecting previously unselected package cuda-repo-ubuntu1604-9-1-local.
+(Reading database ... 392490 files and directories currently installed.)
+Preparing to unpack cuda-repo-ubuntu1604-9-1-local_9.1.85-1_amd64.deb ...
+Unpacking cuda-repo-ubuntu1604-9-1-local (9.1.85-1) ...
+Setting up cuda-repo-ubuntu1604-9-1-local (9.1.85-1) ...</a>
+</h3>
+<h3 class="topic">
+<a name="5n1cav03v80f076e68t3ggbs83">&nbsp;&nbsp;&nbsp;the.kim@ubuntu-gpu-home:~/Downloads$ sudo dpkg -i cuda-repo-ubuntu1604-9-1-local-compiler-update-1_1.0-1_amd64.deb </a>
+</h3>
+<h3 class="topic">
+<a name="5aac0vvrmfu4lcudk4qvvl40cc">&nbsp;&nbsp;&nbsp;&nbsp;Selecting previously unselected package cuda-repo-ubuntu1604-9-1-local-compiler-update-1.
+(Reading database ... 392563 files and directories currently installed.)
+Preparing to unpack cuda-repo-ubuntu1604-9-1-local-compiler-update-1_1.0-1_amd64.deb ...
+Unpacking cuda-repo-ubuntu1604-9-1-local-compiler-update-1 (1.0-1) ...
+Setting up cuda-repo-ubuntu1604-9-1-local-compiler-update-1 (1.0-1) ...</a>
+</h3>
+<h3 class="topic">
+<a name="5mmdlssbglejkkpjb55tt0vv7h">&nbsp;&nbsp;&nbsp;the.kim@ubuntu-gpu-home:~/Downloads$ sudo dpkg -i cuda-repo-ubuntu1604-9-1-local-cublas-performance-update-1_1.0-1_amd64.deb</a>
+</h3>
+<h3 class="topic">
+<a name="6a6q510am5gk1diigoinkbvb0u">&nbsp;&nbsp;&nbsp;&nbsp;Selecting previously unselected package cuda-repo-ubuntu1604-9-1-local-cublas-performance-update-1.
+(Reading database ... 392572 files and directories currently installed.)
+Preparing to unpack cuda-repo-ubuntu1604-9-1-local-cublas-performance-update-1_1.0-1_amd64.deb ...
+Unpacking cuda-repo-ubuntu1604-9-1-local-cublas-performance-update-1 (1.0-1) ...
+Setting up cuda-repo-ubuntu1604-9-1-local-cublas-performance-update-1 (1.0-1) ...</a>
+</h3>
+<h3 class="topic">
+<a name="4b3eqrngklis810n8b6dn4c3l6">&nbsp;&nbsp;&nbsp;the.kim@ubuntu-gpu-home:~/Downloads$ sudo dpkg -i cuda-repo-ubuntu1604-9-1-local-cublas-performance-update-3_1.0-1_amd64.deb </a>
+</h3>
+<h3 class="topic">
+<a name="4d23tcv0hv8t0ofidgkq2k717g">&nbsp;&nbsp;&nbsp;&nbsp;Selecting previously unselected package cuda-repo-ubuntu1604-9-1-local-cublas-performance-update-3.
+(Reading database ... 392582 files and directories currently installed.)
+Preparing to unpack cuda-repo-ubuntu1604-9-1-local-cublas-performance-update-3_1.0-1_amd64.deb ...
+Unpacking cuda-repo-ubuntu1604-9-1-local-cublas-performance-update-3 (1.0-1) ...
+Setting up cuda-repo-ubuntu1604-9-1-local-cublas-performance-update-3 (1.0-1) ...</a>
+</h3>
+<h3 class="topic">
+<a name="5tfsl9s0um5uambq6bhs0jugo0">&nbsp;&nbsp;Installing the CUDA public GPG key</a>
+</h3>
+<h3 class="topic">
+<a name="12jmvb34e2ngd3fd55e17tq8ot">&nbsp;&nbsp;&nbsp;When installing using</a>
+</h3>
+<h3 class="topic">
+<a name="645h7cs3a5btog90uh4vva87b2">&nbsp;&nbsp;&nbsp;&nbsp;the local repo</a>
+</h3>
+<h3 class="topic">
+<a name="7b6ftge5cv41v9tf2r4a01gqg0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ sudo apt-key add /var/cuda-repo-&lt;version&gt;/7fa2af80.pub</a>
+</h3>
+<h3 class="topic">
+<a name="4c14t9moadh76jm8ntd0o2g6a5">&nbsp;&nbsp;&nbsp;&nbsp;the network repo</a>
+</h3>
+<h3 class="topic">
+<a name="00f8ijurvjestk6us2k6bk1r42">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/&lt;distro&gt;/&lt;architecture&gt;/7fa2af80.pub</a>
+</h3>
+<h3 class="topic">
+<a name="7nu52aaomt12b6leq1s3l7hnfj">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img height="133" src="NVIDIA CUDA Installation Guide for Linux_files/5bsiakq9psb6jg3tjis7bqa31o.png" width="597"></p>
+<h3 class="topic">
+<a name="2os44dbmbvvtg8jcmkn205890j">&nbsp;&nbsp;&nbsp;&nbsp;Q: How to find &lt;distro&gt;/&lt;architecture&gt; given above?</a>
+</h3>
+<h3 class="topic">
+<a href="https://developer.download.nvidia.com/compute/cuda/repos/" name="7a1er34pjkohmoitj8pj3v3p3p">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://developer.download.nvidia.com/compute/cuda/repos/</a>
+</h3>
+<h3 class="topic">
+<a name="7otg9qosg4nusa364dlr6a393n">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="NVIDIA CUDA Installation Guide for Linux_files/7hpir8quu6londtc4d46pomti3.png"></p>
+<h3 class="topic">
+<a name="4k1r74mfdohsmksegfpil9r52u">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img height="459" src="NVIDIA CUDA Installation Guide for Linux_files/557jsacluc4dotee8oa0kgrkr5.png" width="362"></p>
+<h3 class="topic">
+<a name="6tnpetcb9eqljk9vkj0pthf5bu">&nbsp;&nbsp;&nbsp;&nbsp;Q: Is this command right? Or should I use the installation instructions on the left?</a>
+</h3>
+<h3 class="topic">
+<a name="11da6s44303pqa0jfcchvccbmp">&nbsp;&nbsp;&nbsp;&nbsp;the.kim@ubuntu-gpu-home:~/Downloads$ sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub</a>
+</h3>
+<h3 class="topic">
+<a name="7nbuarp74nqf8sf4rndajbq5sf">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gpg: WARNING: unable to fetch URI https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub: keyserver error</a>
+</h3>
+<h3 class="topic">
+<a name="1lu62jaofsf9j3jpk2il3l63qn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executing: /tmp/tmp.XD3s6Lt6CC/gpg.1.sh --fetch-keys
+https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
+gpgkeys: protocol `https' not supported
+gpg: no handler for keyserver scheme `https'
+gpg: WARNING: unable to fetch URI https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub: keyserver error
+</a>
+</h3>
+<h3 class="topic">
+<a name="7qespi7hdcitb33sen2g9nl4mk">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Skipped</a>
+</h3>
+<h3 class="topic">
+<a name="3knfvsgi95ocgn18n7kunds4fo">&nbsp;&nbsp;Update the Apt repository cache</a>
+</h3>
+<h3 class="topic">
+<a name="6vb60bhq4fslafru87vrkbhdu3">&nbsp;&nbsp;&nbsp;$ sudo apt-get update</a>
+</h3>
+<h3 class="topic">
+<a name="0nn7vlshf4cs4smi6faf1ljt91">&nbsp;&nbsp;Install CUDA</a>
+</h3>
+<h3 class="topic">
+<a name="22dqrsvl6u3a80c8ot6stim6gg">&nbsp;&nbsp;&nbsp;$ sudo apt-get install cuda</a>
+</h3>
+<h3 class="topic">
+<a name="198bsp72lcdj4qu8673gbvep1g">&nbsp;&nbsp;&nbsp;&nbsp;Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  cuda-8-0 cuda-cublas-8-0 cuda-cublas-dev-8-0 cuda-cufft-8-0
+  cuda-cufft-dev-8-0 cuda-curand-8-0 cuda-curand-dev-8-0 cuda-cusolver-8-0
+  cuda-cusolver-dev-8-0 cuda-cusparse-8-0 cuda-cusparse-dev-8-0
+  cuda-demo-suite-8-0 cuda-documentation-8-0 cuda-npp-8-0 cuda-npp-dev-8-0
+  cuda-nvgraph-8-0 cuda-nvgraph-dev-8-0 cuda-nvml-dev-8-0 cuda-nvrtc-8-0
+  cuda-nvrtc-dev-8-0 cuda-runtime-8-0 cuda-samples-8-0 cuda-toolkit-8-0
+  cuda-visual-tools-8-0
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  cuda-9-1 cuda-command-line-tools-9-1 cuda-compiler-9-1 cuda-cublas-9-1
+  cuda-cublas-dev-9-1 cuda-cudart-9-1 cuda-cudart-dev-9-1 cuda-cufft-9-1
+  cuda-cufft-dev-9-1 cuda-cuobjdump-9-1 cuda-cupti-9-1 cuda-curand-9-1
+  cuda-curand-dev-9-1 cuda-cusolver-9-1 cuda-cusolver-dev-9-1
+  cuda-cusparse-9-1 cuda-cusparse-dev-9-1 cuda-demo-suite-9-1
+  cuda-documentation-9-1 cuda-driver-dev-9-1 cuda-drivers cuda-gdb-9-1
+  cuda-gpu-library-advisor-9-1 cuda-libraries-9-1 cuda-libraries-dev-9-1
+  cuda-license-9-1 cuda-memcheck-9-1 cuda-misc-headers-9-1 cuda-npp-9-1
+  cuda-npp-dev-9-1 cuda-nsight-9-1 cuda-nvcc-9-1 cuda-nvdisasm-9-1
+  cuda-nvgraph-9-1 cuda-nvgraph-dev-9-1 cuda-nvml-dev-9-1 cuda-nvprof-9-1
+  cuda-nvprune-9-1 cuda-nvrtc-9-1 cuda-nvrtc-dev-9-1 cuda-nvtx-9-1
+  cuda-nvvp-9-1 cuda-runtime-9-1 cuda-samples-9-1 cuda-toolkit-9-1
+  cuda-tools-9-1 cuda-visual-tools-9-1 libcuda1-387 nvidia-387 nvidia-387-dev
+  nvidia-modprobe nvidia-opencl-icd-387 nvidia-settings
+The following packages will be REMOVED:
+  libcuda1-375 libcuda1-384 nvidia-375 nvidia-375-dev nvidia-384
+  nvidia-384-dev nvidia-opencl-icd-375 nvidia-opencl-icd-384
+The following NEW packages will be installed:
+  cuda-9-1 cuda-command-line-tools-9-1 cuda-compiler-9-1 cuda-cublas-9-1
+  cuda-cublas-dev-9-1 cuda-cudart-9-1 cuda-cudart-dev-9-1 cuda-cufft-9-1
+  cuda-cufft-dev-9-1 cuda-cuobjdump-9-1 cuda-cupti-9-1 cuda-curand-9-1
+  cuda-curand-dev-9-1 cuda-cusolver-9-1 cuda-cusolver-dev-9-1
+  cuda-cusparse-9-1 cuda-cusparse-dev-9-1 cuda-demo-suite-9-1
+  cuda-documentation-9-1 cuda-driver-dev-9-1 cuda-gdb-9-1
+  cuda-gpu-library-advisor-9-1 cuda-libraries-9-1 cuda-libraries-dev-9-1
+  cuda-license-9-1 cuda-memcheck-9-1 cuda-misc-headers-9-1 cuda-npp-9-1
+  cuda-npp-dev-9-1 cuda-nsight-9-1 cuda-nvcc-9-1 cuda-nvdisasm-9-1
+  cuda-nvgraph-9-1 cuda-nvgraph-dev-9-1 cuda-nvml-dev-9-1 cuda-nvprof-9-1
+  cuda-nvprune-9-1 cuda-nvrtc-9-1 cuda-nvrtc-dev-9-1 cuda-nvtx-9-1
+  cuda-nvvp-9-1 cuda-runtime-9-1 cuda-samples-9-1 cuda-toolkit-9-1
+  cuda-tools-9-1 cuda-visual-tools-9-1 libcuda1-387 nvidia-387 nvidia-387-dev
+  nvidia-opencl-icd-387
+The following packages will be upgraded:
+  cuda cuda-drivers nvidia-modprobe nvidia-settings
+4 upgraded, 50 newly installed, 8 to remove and 33 not upgraded.
+Need to get 0 B/1,191 MB of archives.
+After this operation, 2,401 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 file:/var/cuda-repo-9-1-local  cuda-drivers 387.26-1 [2,402 B]
+Get:2 file:/var/cuda-repo-9-1-local  nvidia-387 387.26-0ubuntu1 [74.3 MB]
+Get:3 file:/var/cuda-repo-9-1-local  nvidia-387-dev 387.26-0ubuntu1 [82.5 kB]
+Get:4 file:/var/cuda-repo-9-1-local  libcuda1-387 387.26-0ubuntu1 [3,397 kB]
+Get:5 file:/var/cuda-repo-9-1-local  nvidia-modprobe 387.26-0ubuntu1 [17.2 kB]
+Get:6 file:/var/cuda-repo-9-1-local  nvidia-settings 387.26-0ubuntu1 [925 kB]
+Get:7 file:/var/cuda-repo-9-1-local  nvidia-opencl-icd-387 387.26-0ubuntu1 [3,489 kB]
+Get:8 file:/var/cuda-repo-9-1-local  cuda-license-9-1 9.1.85-1 [21.7 kB]
+Get:9 file:/var/cuda-repo-9-1-local  cuda-misc-headers-9-1 9.1.85-1 [646 kB]
+Get:10 file:/var/cuda-repo-9-1-local-compiler-update-1  cuda-nvcc-9-1 9.1.85.2-1 [17.2 MB]
+Get:11 file:/var/cuda-repo-9-1-local  cuda-cuobjdump-9-1 9.1.85-1 [129 kB]
+Get:12 file:/var/cuda-repo-9-1-local  cuda-nvprune-9-1 9.1.85-1 [36.6 kB]
+Get:13 file:/var/cuda-repo-9-1-local  cuda-compiler-9-1 9.1.85-1 [2,524 B]
+Get:14 file:/var/cuda-repo-9-1-local  cuda-nvdisasm-9-1 9.1.85-1 [18.3 MB]
+Get:15 file:/var/cuda-repo-9-1-local  cuda-gdb-9-1 9.1.85-1 [2,763 kB]
+Get:16 file:/var/cuda-repo-9-1-local  cuda-nvprof-9-1 9.1.85-1 [4,543 kB]
+Get:17 file:/var/cuda-repo-9-1-local  cuda-memcheck-9-1 9.1.85-1 [108 kB]
+Get:18 file:/var/cuda-repo-9-1-local  cuda-cudart-9-1 9.1.85-1 [107 kB]
+Get:19 file:/var/cuda-repo-9-1-local  cuda-driver-dev-9-1 9.1.85-1 [10.9 kB]
+Get:20 file:/var/cuda-repo-9-1-local  cuda-cudart-dev-9-1 9.1.85-1 [725 kB]
+Get:21 file:/var/cuda-repo-9-1-local  cuda-cupti-9-1 9.1.85-1 [1,442 kB]
+Get:22 file:/var/cuda-repo-9-1-local  cuda-gpu-library-advisor-9-1 9.1.85-1 [1,002 kB]
+Get:23 file:/var/cuda-repo-9-1-local  cuda-nvtx-9-1 9.1.85-1 [2,564 B]
+Get:24 file:/var/cuda-repo-9-1-local  cuda-command-line-tools-9-1 9.1.85-1 [26.0 kB]
+Get:25 file:/var/cuda-repo-9-1-local  cuda-nsight-9-1 9.1.85-1 [2,586 B]
+Get:26 file:/var/cuda-repo-9-1-local  cuda-nvvp-9-1 9.1.85-1 [2,530 B]
+Get:27 file:/var/cuda-repo-9-1-local  cuda-nvrtc-9-1 9.1.85-1 [6,289 kB]
+Get:28 file:/var/cuda-repo-9-1-local  cuda-nvrtc-dev-9-1 9.1.85-1 [9,372 B]
+Get:29 file:/var/cuda-repo-9-1-local  cuda-cusolver-9-1 9.1.85-1 [27.9 MB]
+Get:30 file:/var/cuda-repo-9-1-local  cuda-cusolver-dev-9-1 9.1.85-1 [6,940 kB]
+Get:31 file:/var/cuda-repo-9-1-local-cublas-performance-update-3  cuda-cublas-9-1 9.1.85.3-1 [50.1 MB]
+Get:32 file:/var/cuda-repo-9-1-local-cublas-performance-update-3  cuda-cublas-dev-9-1 9.1.85.3-1 [49.6 MB]
+Get:33 file:/var/cuda-repo-9-1-local  cuda-cufft-9-1 9.1.85-1 [76.0 MB]
+Get:34 file:/var/cuda-repo-9-1-local  cuda-cufft-dev-9-1 9.1.85-1 [65.8 MB]
+Get:35 file:/var/cuda-repo-9-1-local  cuda-curand-9-1 9.1.85-1 [38.8 MB]
+Get:36 file:/var/cuda-repo-9-1-local  cuda-curand-dev-9-1 9.1.85-1 [57.9 MB]
+Get:37 file:/var/cuda-repo-9-1-local  cuda-cusparse-9-1 9.1.85-1 [24.9 MB]
+Get:38 file:/var/cuda-repo-9-1-local  cuda-cusparse-dev-9-1 9.1.85-1 [25.0 MB]
+Get:39 file:/var/cuda-repo-9-1-local  cuda-npp-9-1 9.1.85-1 [47.3 MB]
+Get:40 file:/var/cuda-repo-9-1-local  cuda-npp-dev-9-1 9.1.85-1 [47.2 MB]
+Get:41 file:/var/cuda-repo-9-1-local  cuda-nvml-dev-9-1 9.1.85-1 [48.1 kB]     
+Get:42 file:/var/cuda-repo-9-1-local  cuda-nvgraph-9-1 9.1.85-1 [6,235 kB]     
+Get:43 file:/var/cuda-repo-9-1-local  cuda-nvgraph-dev-9-1 9.1.85-1 [5,841 kB] 
+Get:44 file:/var/cuda-repo-9-1-local  cuda-visual-tools-9-1 9.1.85-1 [396 MB]  
+Get:45 file:/var/cuda-repo-9-1-local  cuda-tools-9-1 9.1.85-1 [2,490 B]        
+Get:46 file:/var/cuda-repo-9-1-local  cuda-samples-9-1 9.1.85-1 [76.3 MB]      
+Get:47 file:/var/cuda-repo-9-1-local  cuda-documentation-9-1 9.1.85-1 [49.5 MB]
+Get:48 file:/var/cuda-repo-9-1-local  cuda-libraries-dev-9-1 9.1.85-1 [2,596 B]
+Get:49 file:/var/cuda-repo-9-1-local  cuda-toolkit-9-1 9.1.85-1 [2,824 B]      
+Get:50 file:/var/cuda-repo-9-1-local  cuda-libraries-9-1 9.1.85-1 [2,572 B]    
+Get:51 file:/var/cuda-repo-9-1-local  cuda-runtime-9-1 9.1.85-1 [2,534 B]      
+Get:52 file:/var/cuda-repo-9-1-local  cuda-demo-suite-9-1 9.1.85-1 [3,943 kB]  
+Get:53 file:/var/cuda-repo-9-1-local  cuda-9-1 9.1.85-1 [2,560 B]              
+Get:54 file:/var/cuda-repo-9-1-local  cuda 9.1.85-1 [2,512 B]                  
+Extracting templates from packages: 100%                                       
+(Reading database ... 392592 files and directories currently installed.)
+Preparing to unpack .../cuda-drivers_387.26-1_amd64.deb ...
+Unpacking cuda-drivers (387.26-1) over (375.26-1) ...
+(Reading database ... 392591 files and directories currently installed.)
+Removing libcuda1-375 (384.111-0ubuntu0.16.04.1) ...
+Removing libcuda1-384 (384.111-0ubuntu0.16.04.1) ...
+Removing nvidia-opencl-icd-375 (384.111-0ubuntu0.16.04.1) ...
+Removing nvidia-opencl-icd-384 (384.111-0ubuntu0.16.04.1) ...
+dpkg: nvidia-384: dependency problems, but removing anyway as you requested:
+ nvidia-384-dev depends on nvidia-384 (&gt;= 384.111).
+ nvidia-375 depends on nvidia-384.
+
+Removing nvidia-384 (384.111-0ubuntu0.16.04.1) ...
+Removing all DKMS Modules
+Done.
+update-alternatives: using /usr/lib/nvidia-384-prime/ld.so.conf to provide /etc/ld.so.conf.d/x86_64-linux-gnu_GL.conf (x86_64-linux-gnu_gl_conf) in auto mode
+update-alternatives: using /usr/lib/nvidia-384-prime/ld.so.conf to provide /etc/ld.so.conf.d/x86_64-linux-gnu_EGL.conf (x86_64-linux-gnu_egl_conf) in auto mode
+update-alternatives: using /usr/lib/nvidia-384-prime/alt_ld.so.conf to provide /etc/ld.so.conf.d/i386-linux-gnu_GL.conf (i386-linux-gnu_gl_conf) in auto mode
+update-alternatives: using /usr/lib/nvidia-384-prime/alt_ld.so.conf to provide /etc/ld.so.conf.d/i386-linux-gnu_EGL.conf (i386-linux-gnu_egl_conf) in auto mode
+update-alternatives: using /usr/lib/x86_64-linux-gnu/mesa/ld.so.conf to provide /etc/ld.so.conf.d/x86_64-linux-gnu_GL.conf (x86_64-linux-gnu_gl_conf) in auto mode
+update-alternatives: using /usr/lib/x86_64-linux-gnu/mesa-egl/ld.so.conf to provide /etc/ld.so.conf.d/x86_64-linux-gnu_EGL.conf (x86_64-linux-gnu_egl_conf) in auto mode
+update-alternatives: using /usr/lib/i386-linux-gnu/mesa/ld.so.conf to provide /etc/ld.so.conf.d/i386-linux-gnu_GL.conf (i386-linux-gnu_gl_conf) in auto mode
+INFO:Disable nvidia-384
+DEBUG:Parsing /usr/share/ubuntu-drivers-common/quirks/lenovo_thinkpad
+DEBUG:Parsing /usr/share/ubuntu-drivers-common/quirks/put_your_quirks_here
+DEBUG:Parsing /usr/share/ubuntu-drivers-common/quirks/dell_latitude
+update-initramfs: deferring update (trigger activated)
+Processing triggers for libc-bin (2.23-0ubuntu10) ...
+/sbin/ldconfig.real: /usr/local/cuda-8.0/targets/x86_64-linux/lib/libcudnn.so.5 is not a symbolic link
+
+Processing triggers for man-db (2.7.5-1) ...
+Processing triggers for initramfs-tools (0.122ubuntu8.11) ...
+update-initramfs: Generating /boot/initrd.img-4.4.0-119-generic
+Selecting previously unselected package nvidia-387.
+(Reading database ... 392017 files and directories currently installed.)
+Preparing to unpack .../nvidia-387_387.26-0ubuntu1_amd64.deb ...
+Unpacking nvidia-387 (387.26-0ubuntu1) ...
+Selecting previously unselected package nvidia-387-dev.
+Preparing to unpack .../nvidia-387-dev_387.26-0ubuntu1_amd64.deb ...
+Unpacking nvidia-387-dev (387.26-0ubuntu1) ...
+Selecting previously unselected package libcuda1-387.
+Preparing to unpack .../libcuda1-387_387.26-0ubuntu1_amd64.deb ...
+Unpacking libcuda1-387 (387.26-0ubuntu1) ...
+Preparing to unpack .../nvidia-modprobe_387.26-0ubuntu1_amd64.deb ...
+Unpacking nvidia-modprobe (387.26-0ubuntu1) over (375.26-0ubuntu1) ...
+Preparing to unpack .../nvidia-settings_387.26-0ubuntu1_amd64.deb ...
+Unpacking nvidia-settings (387.26-0ubuntu1) over (375.26-0ubuntu1) ...
+Selecting previously unselected package nvidia-opencl-icd-387.
+Preparing to unpack .../nvidia-opencl-icd-387_387.26-0ubuntu1_amd64.deb ...
+Unpacking nvidia-opencl-icd-387 (387.26-0ubuntu1) ...
+Processing triggers for libc-bin (2.23-0ubuntu10) ...
+/sbin/ldconfig.real: /usr/local/cuda-8.0/targets/x86_64-linux/lib/libcudnn.so.5 is not a symbolic link
+
+Processing triggers for ureadahead (0.100.0-19) ...
+ureadahead will be reprofiled on next reboot
+Processing triggers for man-db (2.7.5-1) ...
+Processing triggers for bamfdaemon (0.5.3~bzr0+16.04.20180209-0ubuntu1) ...
+Rebuilding /usr/share/applications/bamf-2.index...
+Processing triggers for desktop-file-utils (0.22-1ubuntu5.1) ...
+Processing triggers for gnome-menus (3.13.3-6ubuntu3.1) ...
+Processing triggers for mime-support (3.59ubuntu1) ...
+(Reading database ... 392619 files and directories currently installed.)
+Removing nvidia-375-dev (384.111-0ubuntu0.16.04.1) ...
+Removing nvidia-375 (384.111-0ubuntu0.16.04.1) ...
+Removing nvidia-384-dev (384.111-0ubuntu0.16.04.1) ...
+Selecting previously unselected package cuda-license-9-1.
+(Reading database ... 392596 files and directories currently installed.)
+Preparing to unpack .../cuda-license-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-license-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-misc-headers-9-1.
+Preparing to unpack .../cuda-misc-headers-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-misc-headers-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-nvcc-9-1.
+Preparing to unpack .../cuda-nvcc-9-1_9.1.85.2-1_amd64.deb ...
+Unpacking cuda-nvcc-9-1 (9.1.85.2-1) ...
+Selecting previously unselected package cuda-cuobjdump-9-1.
+Preparing to unpack .../cuda-cuobjdump-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-cuobjdump-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-nvprune-9-1.
+Preparing to unpack .../cuda-nvprune-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-nvprune-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-compiler-9-1.
+Preparing to unpack .../cuda-compiler-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-compiler-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-nvdisasm-9-1.
+Preparing to unpack .../cuda-nvdisasm-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-nvdisasm-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-gdb-9-1.
+Preparing to unpack .../cuda-gdb-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-gdb-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-nvprof-9-1.
+Preparing to unpack .../cuda-nvprof-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-nvprof-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-memcheck-9-1.
+Preparing to unpack .../cuda-memcheck-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-memcheck-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-cudart-9-1.
+Preparing to unpack .../cuda-cudart-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-cudart-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-driver-dev-9-1.
+Preparing to unpack .../cuda-driver-dev-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-driver-dev-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-cudart-dev-9-1.
+Preparing to unpack .../cuda-cudart-dev-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-cudart-dev-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-cupti-9-1.
+Preparing to unpack .../cuda-cupti-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-cupti-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-gpu-library-advisor-9-1.
+Preparing to unpack .../cuda-gpu-library-advisor-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-gpu-library-advisor-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-nvtx-9-1.
+Preparing to unpack .../cuda-nvtx-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-nvtx-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-command-line-tools-9-1.
+Preparing to unpack .../cuda-command-line-tools-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-command-line-tools-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-nsight-9-1.
+Preparing to unpack .../cuda-nsight-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-nsight-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-nvvp-9-1.
+Preparing to unpack .../cuda-nvvp-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-nvvp-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-nvrtc-9-1.
+Preparing to unpack .../cuda-nvrtc-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-nvrtc-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-nvrtc-dev-9-1.
+Preparing to unpack .../cuda-nvrtc-dev-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-nvrtc-dev-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-cusolver-9-1.
+Preparing to unpack .../cuda-cusolver-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-cusolver-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-cusolver-dev-9-1.
+Preparing to unpack .../cuda-cusolver-dev-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-cusolver-dev-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-cublas-9-1.
+Preparing to unpack .../cuda-cublas-9-1_9.1.85.3-1_amd64.deb ...
+Unpacking cuda-cublas-9-1 (9.1.85.3-1) ...
+Selecting previously unselected package cuda-cublas-dev-9-1.
+Preparing to unpack .../cuda-cublas-dev-9-1_9.1.85.3-1_amd64.deb ...
+Unpacking cuda-cublas-dev-9-1 (9.1.85.3-1) ...
+Selecting previously unselected package cuda-cufft-9-1.
+Preparing to unpack .../cuda-cufft-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-cufft-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-cufft-dev-9-1.
+Preparing to unpack .../cuda-cufft-dev-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-cufft-dev-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-curand-9-1.
+Preparing to unpack .../cuda-curand-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-curand-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-curand-dev-9-1.
+Preparing to unpack .../cuda-curand-dev-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-curand-dev-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-cusparse-9-1.
+Preparing to unpack .../cuda-cusparse-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-cusparse-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-cusparse-dev-9-1.
+Preparing to unpack .../cuda-cusparse-dev-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-cusparse-dev-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-npp-9-1.
+Preparing to unpack .../cuda-npp-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-npp-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-npp-dev-9-1.
+Preparing to unpack .../cuda-npp-dev-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-npp-dev-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-nvml-dev-9-1.
+Preparing to unpack .../cuda-nvml-dev-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-nvml-dev-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-nvgraph-9-1.
+Preparing to unpack .../cuda-nvgraph-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-nvgraph-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-nvgraph-dev-9-1.
+Preparing to unpack .../cuda-nvgraph-dev-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-nvgraph-dev-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-visual-tools-9-1.
+Preparing to unpack .../cuda-visual-tools-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-visual-tools-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-tools-9-1.
+Preparing to unpack .../cuda-tools-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-tools-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-samples-9-1.
+Preparing to unpack .../cuda-samples-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-samples-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-documentation-9-1.
+Preparing to unpack .../cuda-documentation-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-documentation-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-libraries-dev-9-1.
+Preparing to unpack .../cuda-libraries-dev-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-libraries-dev-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-toolkit-9-1.
+Preparing to unpack .../cuda-toolkit-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-toolkit-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-libraries-9-1.
+Preparing to unpack .../cuda-libraries-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-libraries-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-runtime-9-1.
+Preparing to unpack .../cuda-runtime-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-runtime-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-demo-suite-9-1.
+Preparing to unpack .../cuda-demo-suite-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-demo-suite-9-1 (9.1.85-1) ...
+Selecting previously unselected package cuda-9-1.
+Preparing to unpack ..././cuda-9-1_9.1.85-1_amd64.deb ...
+Unpacking cuda-9-1 (9.1.85-1) ...
+Preparing to unpack ..././cuda_9.1.85-1_amd64.deb ...
+Unpacking cuda (9.1.85-1) over (8.0.61-1) ...
+Setting up nvidia-387 (387.26-0ubuntu1) ...
+update-alternatives: using /usr/lib/nvidia-387/ld.so.conf to provide /etc/ld.so.conf.d/x86_64-linux-gnu_GL.conf (x86_64-linux-gnu_gl_conf) in auto mode
+update-alternatives: warning: skip creation of /usr/share/grub-gfxpayload-lists/blacklist/10_proprietary-graphics-drivers because associated file /usr/share/nvidia-387/nvidia-387.grub-gfxpayload (of link group x86_64-linux-gnu_gl_conf) doesn't exist
+update-alternatives: using /usr/lib/nvidia-387/ld.so.conf to provide /etc/ld.so.conf.d/x86_64-linux-gnu_EGL.conf (x86_64-linux-gnu_egl_conf) in auto mode
+update-alternatives: using /usr/lib/nvidia-387/alt_ld.so.conf to provide /etc/ld.so.conf.d/i386-linux-gnu_GL.conf (i386-linux-gnu_gl_conf) in auto mode
+update-alternatives: using /usr/lib/nvidia-387/alt_ld.so.conf to provide /etc/ld.so.conf.d/i386-linux-gnu_EGL.conf (i386-linux-gnu_egl_conf) in auto mode
+update-alternatives: using /usr/share/nvidia-387/glamor.conf to provide /usr/share/X11/xorg.conf.d/glamoregl.conf (glamor_conf) in auto mode
+/sbin/ldconfig.real: /usr/local/cuda-8.0/targets/x86_64-linux/lib/libcudnn.so.5 is not a symbolic link
+
+update-initramfs: deferring update (trigger activated)
+update-initramfs: Generating /boot/initrd.img-4.4.0-116-generic
+
+A modprobe blacklist file has been created at /etc/modprobe.d to prevent Nouveau from loading. This can be reverted by deleting /etc/modprobe.d/nvidia-graphics-drivers.conf.
+A new initrd image has also been created. To revert, please replace /boot/initrd-4.4.0-116-generic with /boot/initrd-$(uname -r)-backup.
+
+*****************************************************************************
+*** Reboot your computer and verify that the NVIDIA graphics driver can   ***
+*** be loaded.                                                            ***
+*****************************************************************************
+
+INFO:Enable nvidia-387
+DEBUG:Parsing /usr/share/ubuntu-drivers-common/quirks/lenovo_thinkpad
+DEBUG:Parsing /usr/share/ubuntu-drivers-common/quirks/put_your_quirks_here
+DEBUG:Parsing /usr/share/ubuntu-drivers-common/quirks/dell_latitude
+Adding system user `nvidia-persistenced' (UID 121) ...
+Adding new group `nvidia-persistenced' (GID 129) ...
+Adding new user `nvidia-persistenced' (UID 121) with group `nvidia-persistenced' ...
+Not creating home directory `/'.
+Loading new nvidia-387-387.26 DKMS files...
+First Installation: checking all kernels...
+Building for 4.4.0-116-generic and 4.4.0-119-generic
+Building for architecture x86_64
+Building initial module for 4.4.0-116-generic
+Done.
+
+nvidia_387:
+Running module version sanity check.
+ - Original module
+   - No original module exists within this kernel
+ - Installation
+   - Installing to /lib/modules/4.4.0-116-generic/updates/dkms/
+
+nvidia_387_modeset.ko:
+Running module version sanity check.
+ - Original module
+   - No original module exists within this kernel
+ - Installation
+   - Installing to /lib/modules/4.4.0-116-generic/updates/dkms/
+
+nvidia_387_drm.ko:
+Running module version sanity check.
+ - Original module
+   - No original module exists within this kernel
+ - Installation
+   - Installing to /lib/modules/4.4.0-116-generic/updates/dkms/
+
+nvidia_387_uvm.ko:
+Running module version sanity check.
+ - Original module
+   - No original module exists within this kernel
+ - Installation
+   - Installing to /lib/modules/4.4.0-116-generic/updates/dkms/
+
+depmod....
+
+DKMS: install completed.
+Building initial module for 4.4.0-119-generic
+Done.
+
+nvidia_387:
+Running module version sanity check.
+ - Original module
+   - No original module exists within this kernel
+ - Installation
+   - Installing to /lib/modules/4.4.0-119-generic/updates/dkms/
+
+nvidia_387_modeset.ko:
+Running module version sanity check.
+ - Original module
+   - No original module exists within this kernel
+ - Installation
+   - Installing to /lib/modules/4.4.0-119-generic/updates/dkms/
+
+nvidia_387_drm.ko:
+Running module version sanity check.
+ - Original module
+   - No original module exists within this kernel
+ - Installation
+   - Installing to /lib/modules/4.4.0-119-generic/updates/dkms/
+
+nvidia_387_uvm.ko:
+Running module version sanity check.
+ - Original module
+   - No original module exists within this kernel
+ - Installation
+   - Installing to /lib/modules/4.4.0-119-generic/updates/dkms/
+
+depmod....
+
+DKMS: install completed.
+Setting up nvidia-387-dev (387.26-0ubuntu1) ...
+Setting up libcuda1-387 (387.26-0ubuntu1) ...
+Setting up nvidia-modprobe (387.26-0ubuntu1) ...
+Setting up nvidia-settings (387.26-0ubuntu1) ...
+Setting up nvidia-opencl-icd-387 (387.26-0ubuntu1) ...
+Setting up cuda-drivers (387.26-1) ...
+Setting up cuda-license-9-1 (9.1.85-1) ...
+*** LICENSE AGREEMENT ***
+By using this software you agree to fully comply with the terms and 
+conditions of the EULA (End User License Agreement). The EULA is located
+at /usr/local/cuda-9.1/doc/EULA.txt. The EULA can also be found at
+http://docs.nvidia.com/cuda/eula/index.html. If you do not agree to the
+terms and conditions of the EULA, do not use the software.
+
+Setting up cuda-misc-headers-9-1 (9.1.85-1) ...
+Setting up cuda-nvcc-9-1 (9.1.85.2-1) ...
+Setting up cuda-cuobjdump-9-1 (9.1.85-1) ...
+Setting up cuda-nvprune-9-1 (9.1.85-1) ...
+Setting up cuda-compiler-9-1 (9.1.85-1) ...
+Setting up cuda-nvdisasm-9-1 (9.1.85-1) ...
+Setting up cuda-gdb-9-1 (9.1.85-1) ...
+Setting up cuda-nvprof-9-1 (9.1.85-1) ...
+Setting up cuda-memcheck-9-1 (9.1.85-1) ...
+Setting up cuda-cudart-9-1 (9.1.85-1) ...
+Setting up cuda-driver-dev-9-1 (9.1.85-1) ...
+Setting up cuda-cudart-dev-9-1 (9.1.85-1) ...
+Setting up cuda-cupti-9-1 (9.1.85-1) ...
+Setting up cuda-gpu-library-advisor-9-1 (9.1.85-1) ...
+Setting up cuda-nvtx-9-1 (9.1.85-1) ...
+Setting up cuda-command-line-tools-9-1 (9.1.85-1) ...
+Setting up cuda-nsight-9-1 (9.1.85-1) ...
+Setting up cuda-nvvp-9-1 (9.1.85-1) ...
+Setting up cuda-nvrtc-9-1 (9.1.85-1) ...
+Setting up cuda-nvrtc-dev-9-1 (9.1.85-1) ...
+Setting up cuda-cusolver-9-1 (9.1.85-1) ...
+Setting up cuda-cusolver-dev-9-1 (9.1.85-1) ...
+Setting up cuda-cublas-9-1 (9.1.85.3-1) ...
+Setting up cuda-cublas-dev-9-1 (9.1.85.3-1) ...
+Setting up cuda-cufft-9-1 (9.1.85-1) ...
+Setting up cuda-cufft-dev-9-1 (9.1.85-1) ...
+Setting up cuda-curand-9-1 (9.1.85-1) ...
+Setting up cuda-curand-dev-9-1 (9.1.85-1) ...
+Setting up cuda-cusparse-9-1 (9.1.85-1) ...
+Setting up cuda-cusparse-dev-9-1 (9.1.85-1) ...
+Setting up cuda-npp-9-1 (9.1.85-1) ...
+Setting up cuda-npp-dev-9-1 (9.1.85-1) ...
+Setting up cuda-nvml-dev-9-1 (9.1.85-1) ...
+Setting up cuda-nvgraph-9-1 (9.1.85-1) ...
+Setting up cuda-nvgraph-dev-9-1 (9.1.85-1) ...
+Setting up cuda-visual-tools-9-1 (9.1.85-1) ...
+Setting up cuda-tools-9-1 (9.1.85-1) ...
+Setting up cuda-samples-9-1 (9.1.85-1) ...
+Setting up cuda-documentation-9-1 (9.1.85-1) ...
+Setting up cuda-libraries-dev-9-1 (9.1.85-1) ...
+Setting up cuda-toolkit-9-1 (9.1.85-1) ...
+Setting up cuda-libraries-9-1 (9.1.85-1) ...
+Setting up cuda-runtime-9-1 (9.1.85-1) ...
+Setting up cuda-demo-suite-9-1 (9.1.85-1) ...
+Setting up cuda-9-1 (9.1.85-1) ...
+Setting up cuda (9.1.85-1) ...
+Processing triggers for libc-bin (2.23-0ubuntu10) ...
+/sbin/ldconfig.real: /usr/local/cuda-8.0/targets/x86_64-linux/lib/libcudnn.so.5 is not a symbolic link
+
+Processing triggers for initramfs-tools (0.122ubuntu8.11) ...
+update-initramfs: Generating /boot/initrd.img-4.4.0-119-generic
+Processing triggers for shim-signed (1.33.1~16.04.1+13-0ubuntu2) ...
+Secure Boot not enabled on this system.
+</a>
+</h3>
+<h3 class="topic">
+<a href="http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions" name="77an14u9mu6o7ksshou57ohnp9">&nbsp;&nbsp;Perform the post-installation actions.</a>
+</h3>
+<h3 class="topic">
+<a name="6nc186oah2k891q0o650dhmp5h">&nbsp;3.7. Additional Package Manager Capabilities</a>
+</h3>
+<h3 class="topic">
+<a name="5poq9naothfbkhaja0bfuhnfob">&nbsp;&nbsp;3.7.1. Available Packages</a>
+</h3>
+<h3 class="topic">
+<a name="5l3m1rrj95g0jelctqkfndf0ni">&nbsp;&nbsp;3.7.2. Package Upgrades</a>
+</h3>
+<h3 class="topic">
+<a name="73ua6ce23rleeit2obqo3l4u37">&nbsp;&nbsp;3.7.3. Meta Packages</a>
+</h3>
+<h2 class="topic">
+<a name="7fku26tq3q3vcl85taptvhct3d">4. Runfile Installation</a>
+</h2>
+<h2 class="topic">
+<a name="0cc7go2m26lm5snbk96om4h2uj">5. Cluster Management Packages</a>
+</h2>
+<h2 class="topic">
+<a name="17boku6uo8jreksm0tnt484j8i">6. CUDA Cross-Platform Environment</a>
+</h2>
+<h2 class="topic">
+<a name="306cet24poobinkum6dhs94531">7. Post-installation Actions</a>
+</h2>
+<h3 class="topic">
+<a name="5lihsou9gbt4aq0s66sk54u1sb">&nbsp;The post-installation actions must be manually performed.</a>
+</h3>
+<h3 class="topic">
+<a name="00l5ei9ng0t7fdo67kphv0qvch">&nbsp;7.1. Mandatory Actions</a>
+</h3>
+<h3 class="topic">
+<a name="13337p5cd5hhnmdbvjpl3nqgoo">&nbsp;&nbsp;Some actions must be taken after the installation before the CUDA Toolkit and Driver can be used.</a>
+</h3>
+<h3 class="topic">
+<a name="4092q5ngfl8ioif2u0sn9ek81o">&nbsp;&nbsp;7.1.1. Environment Setup</a>
+</h3>
+<h3 class="topic">
+<a name="5ffso6f101mmjov3ptgr3is29h">&nbsp;&nbsp;&nbsp;$ export PATH=/usr/local/cuda-9.1/bin${PATH:+:${PATH}}</a>
+</h3>
+<h3 class="topic">
+<a name="3brbaft9to80hqaprql67cq6t0">&nbsp;&nbsp;&nbsp;To change the environment variables for </a>
+</h3>
+<h3 class="topic">
+<a name="6c9vaa0bvv09qlvnl87ka0nph9">&nbsp;&nbsp;&nbsp;&nbsp; 64-bit operating systems</a>
+</h3>
+<h3 class="topic">
+<a name="5r6ec0pobg5k937q4uir7fdiuf">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64 ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}</a>
+</h3>
+<h3 class="topic">
+<a name="51tjqopp3m2o4eqcbnlbur69s4">&nbsp;&nbsp;&nbsp;&nbsp;32-bit operating systems</a>
+</h3>
+<h3 class="topic">
+<a name="31q0ern94jc3fs6i5bokq85nl3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}</a>
+</h3>
+<h3 class="topic">
+<a name="48bhj7lu08u16qdbovckbkk7pa">&nbsp;&nbsp;7.1.2. POWER9 Setup</a>
+</h3>
+<h3 class="topic">
+<a name="637mbev1hs29ttktabsdib5th3">&nbsp;7.2. Recommended Actions</a>
+</h3>
+<h3 class="topic">
+<a name="4gra19ipjuhjgsg8haaorg38e9">&nbsp;&nbsp;7.2.1. Install Persistence Daemon</a>
+</h3>
+<h3 class="topic">
+<a name="1oak04o18mfon142q04u4kqgn3">&nbsp;&nbsp;&nbsp;$ /usr/bin/nvidia-persistenced --verbose</a>
+</h3>
+<h3 class="topic">
+<a name="7s71tqoitpbciegon6mbss8cdi">&nbsp;&nbsp;7.2.2. Install Writable Samples</a>
+</h3>
+<h3 class="topic">
+<a name="4e8phn006i10qpj8cl977gj3bn">&nbsp;&nbsp;&nbsp;$ cuda-install-samples-9.1.sh &lt;dir&gt;</a>
+</h3>
+<h3 class="topic">
+<a name="622c938qplem3mq2hqp8uur50o">&nbsp;&nbsp;7.2.3. Verify the Installation</a>
+</h3>
+<h3 class="topic">
+<a name="45e97n8f1idilb2rg7a7jgj98h">&nbsp;&nbsp;&nbsp;7.2.3.1. Verify the Driver Version</a>
+</h3>
+<h3 class="topic">
+<a name="0dqd061aoolikh4vfu1ui05b35">&nbsp;&nbsp;&nbsp;&nbsp;$ cat /proc/driver/nvidia/version</a>
+</h3>
+<h3 class="topic">
+<a name="2i2moapo505d92scl7qq36i8ga">&nbsp;&nbsp;&nbsp;7.2.3.2. Compiling the Examples</a>
+</h3>
+<h3 class="topic">
+<a name="5sflksv5ejsi86gfl9d8bp7mi2">&nbsp;&nbsp;&nbsp;&nbsp;nvcc -V</a>
+</h3>
+<h3 class="topic">
+<a name="0to4rojuaoqd1fmt140jitjou5">&nbsp;&nbsp;&nbsp;&nbsp;the.kim@ubuntu-gpu-home:~$ nvcc -V</a>
+</h3>
+<h3 class="topic">
+<a name="71bc015lqh9rnl361ooh0hco3a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2017 NVIDIA Corporation
+Built on Fri_Nov__3_21:07:56_CDT_2017
+Cuda compilation tools, release 9.1, V9.1.85</a>
+</h3>
+<h2 class="topic">
+<a name="43l3or7touoi6pa5qd4d14tkld">8. Advanced Setup</a>
+</h2>
+<h2 class="topic">
+<a name="22d7bvnh5qc0bod4cu8g8e4meu">9. Frequently Asked Questions</a>
+</h2>
+<h2 class="topic">
+<a name="0kn70q8bk9hm98sc511pfbhf8l">10. Additional Considerations</a>
+</h2>
+</body>
+</html>

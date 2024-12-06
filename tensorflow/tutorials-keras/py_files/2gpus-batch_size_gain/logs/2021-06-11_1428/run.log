@@ -1,0 +1,105 @@
+nvidia-smi -f logs/2021-06-11_1428/1_mnist-mlp-keras.gpu_log.csv --format=csv -l 1 --query-gpu=utilization.gpu,utilization.memory,memory.total,memory.free,memory.used &
+time python 1_mnist-mlp-keras.py &> logs/2021-06-11_1428/1_mnist-mlp-keras.tensorflow.log
+
+real	0m27.300s
+user	0m38.058s
+sys	0m12.444s
+
+nvidia-smi -f logs/2021-06-11_1428/2_mnist-simple-cnn-keras.gpu_log.csv --format=csv -l 1 --query-gpu=utilization.gpu,utilization.memory,memory.total,memory.free,memory.used &
+time python 2_mnist-simple-cnn-keras.py &> logs/2021-06-11_1428/2_mnist-simple-cnn-keras.tensorflow.log
+
+real	2m43.641s
+user	7m3.879s
+sys	1m8.498s
+
+nvidia-smi -f logs/2021-06-11_1428/3_mnist-cnn-keras.gpu_log.csv --format=csv -l 1 --query-gpu=utilization.gpu,utilization.memory,memory.total,memory.free,memory.used &
+time python 3_mnist-cnn-keras.py &> logs/2021-06-11_1428/3_mnist-cnn-keras.tensorflow.log
+
+real	0m36.545s
+user	1m8.634s
+sys	0m18.986s
+
+nvidia-smi -f logs/2021-06-11_1428/4_fashion_mnist-cnn-keras.gpu_log.csv --format=csv -l 1 --query-gpu=utilization.gpu,utilization.memory,memory.total,memory.free,memory.used &
+time python 4_fashion_mnist-cnn-keras.py &> logs/2021-06-11_1428/4_fashion_mnist-cnn-keras.tensorflow.log
+
+real	0m35.921s
+user	1m8.501s
+sys	0m19.427s
+
+nvidia-smi -f logs/2021-06-11_1428/5_cifar10-cnn-keras-tf2.gpu_log.csv --format=csv -l 1 --query-gpu=utilization.gpu,utilization.memory,memory.total,memory.free,memory.used &
+time python 5_cifar10-cnn-keras-tf2.py &> logs/2021-06-11_1428/5_cifar10-cnn-keras-tf2.tensorflow.log
+
+real	0m41.831s
+user	1m16.108s
+sys	0m20.314s
+
+nvidia-smi -f logs/2021-06-11_1428/6_imdb_movie_review-bidirectional_lstm-keras.gpu_log.csv --format=csv -l 1 --query-gpu=utilization.gpu,utilization.memory,memory.total,memory.free,memory.used &
+time python 6_imdb_movie_review-bidirectional_lstm-keras.py &> logs/2021-06-11_1428/6_imdb_movie_review-bidirectional_lstm-keras.tensorflow.log
+
+real	3m33.825s
+user	7m58.393s
+sys	0m41.454s
+
+nvidia-smi -f logs/2021-06-11_1428/7_reuters_newswire-mlp-keras-tf2.gpu_log.csv --format=csv -l 1 --query-gpu=utilization.gpu,utilization.memory,memory.total,memory.free,memory.used &
+time python 7_reuters_newswire-mlp-keras-tf2.py &> logs/2021-06-11_1428/7_reuters_newswire-mlp-keras-tf2.tensorflow.log
+
+real	0m16.223s
+user	0m13.991s
+sys	0m10.291s
+
+grep '^training_time' logs/2021-06-11_1428/1_mnist-mlp-keras.tensorflow.log
+training_time: 0:00:16.154947
+awk '{print $1;}' logs/2021-06-11_1428/1_mnist-mlp-keras.gpu_log.csv | egrep -v '0|utilization' > logs/2021-06-11_1428/1_mnist-mlp-keras.gpu_utils
+get_max_gpu_utilization logs/2021-06-11_1428/1_mnist-mlp-keras.gpu_utils
+max_gpu_util: 97
+get_mean_gpu_utilization logs/2021-06-11_1428/1_mnist-mlp-keras.gpu_utils
+mean_gpu_util: 28.3835
+
+grep '^training_time' logs/2021-06-11_1428/2_mnist-simple-cnn-keras.tensorflow.log
+training_time: 0:02:32.748544
+awk '{print $1;}' logs/2021-06-11_1428/2_mnist-simple-cnn-keras.gpu_log.csv | egrep -v '0|utilization' > logs/2021-06-11_1428/2_mnist-simple-cnn-keras.gpu_utils
+get_max_gpu_utilization logs/2021-06-11_1428/2_mnist-simple-cnn-keras.gpu_utils
+max_gpu_util: 72
+get_mean_gpu_utilization logs/2021-06-11_1428/2_mnist-simple-cnn-keras.gpu_utils
+mean_gpu_util: 28.914
+
+grep '^training_time' logs/2021-06-11_1428/3_mnist-cnn-keras.tensorflow.log
+training_time: 0:00:27.340142
+awk '{print $1;}' logs/2021-06-11_1428/3_mnist-cnn-keras.gpu_log.csv | egrep -v '0|utilization' > logs/2021-06-11_1428/3_mnist-cnn-keras.gpu_utils
+get_max_gpu_utilization logs/2021-06-11_1428/3_mnist-cnn-keras.gpu_utils
+max_gpu_util: 54
+get_mean_gpu_utilization logs/2021-06-11_1428/3_mnist-cnn-keras.gpu_utils
+mean_gpu_util: 39.4046
+
+grep '^training_time' logs/2021-06-11_1428/4_fashion_mnist-cnn-keras.tensorflow.log
+training_time: 0:00:26.412428
+awk '{print $1;}' logs/2021-06-11_1428/4_fashion_mnist-cnn-keras.gpu_log.csv | egrep -v '0|utilization' > logs/2021-06-11_1428/4_fashion_mnist-cnn-keras.gpu_utils
+get_max_gpu_utilization logs/2021-06-11_1428/4_fashion_mnist-cnn-keras.gpu_utils
+max_gpu_util: 83
+get_mean_gpu_utilization logs/2021-06-11_1428/4_fashion_mnist-cnn-keras.gpu_utils
+mean_gpu_util: 41.5114
+
+grep '^training_time' logs/2021-06-11_1428/5_cifar10-cnn-keras-tf2.tensorflow.log
+training_time: 0:00:29.814032
+awk '{print $1;}' logs/2021-06-11_1428/5_cifar10-cnn-keras-tf2.gpu_log.csv | egrep -v '0|utilization' > logs/2021-06-11_1428/5_cifar10-cnn-keras-tf2.gpu_utils
+get_max_gpu_utilization logs/2021-06-11_1428/5_cifar10-cnn-keras-tf2.gpu_utils
+max_gpu_util: 99
+get_mean_gpu_utilization logs/2021-06-11_1428/5_cifar10-cnn-keras-tf2.gpu_utils
+mean_gpu_util: 44.68
+
+grep '^training_time' logs/2021-06-11_1428/6_imdb_movie_review-bidirectional_lstm-keras.tensorflow.log
+training_time: 0:03:18.690800
+awk '{print $1;}' logs/2021-06-11_1428/6_imdb_movie_review-bidirectional_lstm-keras.gpu_log.csv | egrep -v '0|utilization' > logs/2021-06-11_1428/6_imdb_movie_review-bidirectional_lstm-keras.gpu_utils
+get_max_gpu_utilization logs/2021-06-11_1428/6_imdb_movie_review-bidirectional_lstm-keras.gpu_utils
+max_gpu_util: 54
+get_mean_gpu_utilization logs/2021-06-11_1428/6_imdb_movie_review-bidirectional_lstm-keras.gpu_utils
+mean_gpu_util: 46.4855
+
+grep '^training_time' logs/2021-06-11_1428/7_reuters_newswire-mlp-keras-tf2.tensorflow.log
+training_time: 0:00:08.026426
+awk '{print $1;}' logs/2021-06-11_1428/7_reuters_newswire-mlp-keras-tf2.gpu_log.csv | egrep -v '0|utilization' > logs/2021-06-11_1428/7_reuters_newswire-mlp-keras-tf2.gpu_utils
+get_max_gpu_utilization logs/2021-06-11_1428/7_reuters_newswire-mlp-keras-tf2.gpu_utils
+max_gpu_util: 
+get_mean_gpu_utilization logs/2021-06-11_1428/7_reuters_newswire-mlp-keras-tf2.gpu_utils
+mean_gpu_util: 
+

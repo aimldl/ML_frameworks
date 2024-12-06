@@ -1,0 +1,43 @@
+README
+
+## TensorFlow version
+TensorFlow2 is used.
+
+## Quick start guide
+Run either
+  $ ./run
+    or
+  $ ./batch-run
+
+## `run`
+```bash
+$ ./run
+```
+will create a sub-directory under the `logs` directory,
+executes `batch-time_python_py_file`,
+and extracts some sort of GPU performance measures.
+
+## `batch-time_python_py_file`
+`batch-time_python_py_file` is the key program which 
+  runs the following source codes iteratively and
+  logs the total run time, GPU utilization, and so on.
+
+## List of executed source codes
+1_mnist-mlp-keras.py
+2_mnist-simple-cnn-keras.py
+3_mnist-cnn-keras.py
+4_fashion_mnist-cnn-keras.py
+5_cifar10-cnn-keras-tf2.py
+6_imdb_movie_review-bidirectional_lstm-keras.py
+7_reuters_newswire-mlp-keras-tf2.py
+
+## Caution: Do not run
+5_cifar10-cnn-keras.py
+7_reuters_newswire-mlp-keras.py
+
+These source codes are kept for record. They are the old Keras code.
+These codes are converted to TensorFlow2. Notice the difference between
+  5_cifar10-cnn-keras.py     (for standalone Keras)
+  5_cifar10-cnn-keras-tf2.py (for TensorFlow2)
+
+`-tf2` is what we want because the code is ran by TensorFlow2.

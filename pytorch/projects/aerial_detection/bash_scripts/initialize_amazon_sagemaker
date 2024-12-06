@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# initialize_amazon_sagemaker
+
+echo "Install AerialDetection"
+# Meet requirements for AerialDetection
+source activate pytorch_p36
+sudo yum install -y gcc72 gcc72-c++
+# Use a change name trick to swap gcc & gcc72
+cd /usr/bin/
+sudo mv gcc gcc_old
+sudo mv gcc72 gcc
+
+pip install mmcv-full
+conda install -y cython
+
+# If you haven't cloned AerialDetection repository, uncomment.
+# cd ~/SageMaker
+# git clone https://github.com/dingjiansw101/AerialDetection.git
+
+cd ~/SageMaker/AerialDetection
+chmod +x compile.sh
+./compile.sh
+
+pip install -r requirements.txt
+python setup.py develop
+
+echo "Install DOTA_devkit"
+sudo yum install swig
+cd DOTA_devkit/
+swig -c++ -python polyiou.i
+python setup.py build_ext --inplace
+
+# Undo the change name trick to swap gcc72 and gcc
+cd /usr/bin/
+sudo mv gcc gcc_old
+sudo mv gcc72 gcc
+
+echo "Install some utility programs"
+sudo yum install -y tree
+
+echo "Configure Amazon IAM"
+cat ~/SageMaker/.aws/config
+cat ~/SageMaker/.aws/credentials
+echo "config & credentials are displayed above."
+echo "Enter the credentials below"
+aws configure

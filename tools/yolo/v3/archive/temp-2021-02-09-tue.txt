@@ -1,0 +1,8 @@
+grep FPS darknet_opencv_gpu-towndown_mp4.log | awk '{split($0,columns,":"); print columns[2]}' > fps_downtown_mp4.log
+
+./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights kt_data/seoul.mp4
+
+
+mkdir logs
+
+./darknet.old detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights kt_data/seoul.mp4 > logs/seoul-02-09-darknet_old.log

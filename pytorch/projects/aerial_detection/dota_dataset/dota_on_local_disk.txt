@@ -1,0 +1,29 @@
+(dota_on_local_disk)
+├── train
+│   ├── images
+│   │   ├── 1
+│   │   │   └── part1.zip.zip（副本）
+│   │   ├── part1.zip
+│   │   ├── part2.zip
+│   │   └── part3.zip
+│   ├── labelTxt-v1.0
+│   │   ├── labelTxt.zip
+│   │   └── Train_Task2_gt.zip
+│   └── labelTxt-v1.5
+│       ├── DOTA-v1.5_train_hbb.zip
+│       └── DOTA-v1.5_train.zip
+├── val
+│   ├── images
+│   │   └── part1.zip
+│   ├── labelTxt-v1.0
+│   │   ├── labelTxt.zip
+│   │   └── Val_Task2_gt.zip
+│   └── labelTxt-v1.5
+│       ├── DOTA-v1.5_val_hbb.zip
+│       └── DOTA-v1.5_val.zip
+└── images
+    ├── part1.zip
+    ├── part2.zip
+    └── test_info.json
+
+10 directories, 16 files

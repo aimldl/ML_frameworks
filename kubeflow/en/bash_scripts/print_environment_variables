@@ -1,0 +1,8 @@
+#!/bin/bash
+#  print_environment_variables
+
+echo "CONFIG_URI       = $CONFIG_URI"
+echo "AWS_CLUSTER_NAME = $AWS_CLUSTER_NAME"
+echo "KF_NAME          = $KF_NAME"
+echo "BASE_DIR         = $BASE_DIR"
+echo "KF_DIR           = $KF_DIR"

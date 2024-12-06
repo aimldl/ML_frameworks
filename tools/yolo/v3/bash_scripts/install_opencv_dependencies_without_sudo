@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# install_opencv_in_linux
+#### Install OpenCV dependencies
+
+apt update
+apt upgrade -y
+
+#### C/C++ compiler, make, compile option, etc.
+apt install -y build-essential cmake unzip pkg-config 
+
+#### Image I/O packages for the standard image file formats, e.g.  JPEG, PNG, TIFF, etc
+apt -y install libjpeg-dev libpng-dev libtiff-dev
+
+##### apt -y install libjasper-dev
+
+##### E: Unable to locate package libjasper-dev
+
+apt-get install -y build-essential cmake
+
+wget https://github.com/mdadams/jasper/archive/version-2.0.16.tar.gz -O jasper-version-2.0.16.tar.gz
+tar xvf jasper-version-2.0.16.tar.gz
+cd jasper-version-2.0.16/
+
+mkdir build
+
+export SOURCE_DIR=/home/user/darknet/jasper-version-2.0.16
+export BUILD_DIR=/home/user/darknet/jasper-version-2.0.16/build
+cd $BUILD_DIR
+cmake -G "Unix Makefiles" -H$SOURCE_DIR -B$BUILD_DIR
+cd $BUILD_DIR
+make clean all
+make test
+
+#### Video I/O Packages I/O packages for camera stream & video files
+apt install -y libavcodec-dev libavformat-dev libswscale-dev libv4l-dev v4l-utils libxvidcore-d$
+
+####  GStreamer for video streaming
+apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev 
+
+#### OpenCV ^`^ys highgui module relies on the GTK library for GUI operations
+apt install -y libgtk-3-dev
+
+#### apt install -y libgtk-3-dev libqt4-dev libqt5-dev
+
+#### OpenGL support
+apt install -y mesa-utils libgl1-mesa-dri libgtkgl2.0-dev libgtkglext1-dev
+
+#### Optimization of OpenCV 
+apt install -y libatlas-base-dev gfortran libeigen3-dev
+
+#### OpenCV-Python binding
+apt-get install -y python3-dev

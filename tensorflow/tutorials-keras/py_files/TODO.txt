@@ -1,0 +1,10 @@
+TODO
+
+Start from
+  https://www.tensorflow.org/tutorials/distribute/multi_worker_with_keras
+
+multi_nodes-2nodes_2gpus-batch_size_gain
+  node0
+    1_mnist-mlp-keras.py
+    
+Make the multi-node code work.
