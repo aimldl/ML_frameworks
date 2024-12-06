@@ -1,0 +1,15 @@
+#!/bin/bash
+
+NOW=`date +"%Y-%m-%d_%H%M"`
+FILE_NAME="test_run-${NOW}.log"
+START_TIME=`date +"%Y-%m-%d %H:%M:%S"`
+echo "Started at $START_TIME"
+echo "Started at $START_TIME" > $FILE_NAME
+
+COMMAND="./darknet detector demo cfg/coco.data cfg/yolov3.cfg cfg/yolov3.weights"
+echo $COMMAND
+eval $COMMAND
+
+END_TIME=`date +"%Y-%m-%d %H:%M:%S"`
+echo "Finished at $END_TIME"
+echo "Finished at $END_TIME" >> $FILE_NAME

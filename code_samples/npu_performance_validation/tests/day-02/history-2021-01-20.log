@@ -1,0 +1,1000 @@
+  433  cd yolo4/
+  434  ./all_run 
+  435  ~/appref/reset 
+  436  ./all_run 
+  437  shutdown 0
+  438  ls
+  439  lspci | grep PLDA
+  440  ls
+  441  cd appref
+  442  ls
+  443  ./RunCompiledNN 
+  444  cd appref
+  445  \ls
+  446  ls
+  447  cat reset 
+  448  ./reset
+  449  ./RunCompiledNN 
+  450  cd
+  451  cd yolo
+  452  ls
+  453  cd
+  454  cd yolo4/
+  455  ls
+  456  cat all_run 
+  457  ./all_run 
+  458  ls
+  459  cat reset_all 
+  460  ./reset_all
+  461  ./all_run 
+  462  ls
+  463  lspci | grep PLDA
+  464  cd appref
+  465  ls
+  466  ./RunCompiledNN 
+  467  cd ../
+  468  cd yolo
+  469  cd
+  470  cd yolo4/
+  471  ls
+  472  ./all_run 
+  473  ls
+  474  cat reset_all 
+  475  ./reset_all 
+  476  cd
+  477  cd appref
+  478  ./RunCompiledNN 
+  479  cd
+  480  cd yolo4/
+  481  ls
+  482  ./all_run 
+  483  cd
+  484  cd 
+  485  cd appref
+  486  ls
+  487  ./RunCompiledNN 
+  488  cd 
+  489  cd yolo4/
+  490  ./all_run 
+  491  ./reset_all 
+  492  ls
+  493  ./reset_all 
+  494  lspci | grep PLDA
+  495  ./reset_all 
+  496  shutdown 0
+  497  cd src/
+  498  grep 082 *
+  499  grep 82 *
+  500  cd yolo4/
+  501  cd
+  502  cd appref
+  503  ./RunCompiledNN 
+  504  cd
+  505  cd yolo4/
+  506  ./all_run 
+  507  ls
+  508  cd cfg/
+  509  ls
+  510  cp yolov3.cfg yolov3_original.cfg
+  511  ls
+  512  vi yolov3.cfg 
+  513  cd ..
+  514  ls
+  515  cd src/
+  516  vi forward_network_AB9.cpp 
+  517  cp forward_network_AB9.cpp forward_network_AB9_original.cpp
+  518  vi forward_network_AB9.cpp 
+  519  ls
+  520  cd ..
+  521  make
+  522  ./reset_all
+  523  ./all_run 
+  524  shutdown 0
+  525  cd yolo4/
+  526  ./all_run 
+  527  ./reset_all 
+  528  cd
+  529  cd appref
+  530  ./RunCompiledNN 
+  531  cd yolo4/
+  532  ./reset_all 
+  533  cd
+  534  cd appref
+  535  ./RunCompiledNN 
+  536  cd appref
+  537  ./RunCompiledNN 
+  538  cd src/
+  539  vi demo.c 
+  540  cd ../
+  541  ls
+  542  cd src/
+  543  ls
+  544  vi demo.c 
+  545  ls
+  546  cd appref
+  547  ./RunCompiledNN 
+  548  cd
+  549  cd yolo4/
+  550  ./all_run 
+  551  make
+  552  cd
+  553  vi .vimrc
+  554  cd yolo4/
+  555  ./reset_all
+  556  ./all_run 
+  557  man sleep
+  558  make
+  559  ./reset_all
+  560  ./all_run 
+  561  cd
+  562  cd yolo
+  563  ls
+  564  ./ref_run_yolo3 
+  565  cd yolo4/
+  566  ls
+  567  cd src/
+  568  ls
+  569  vi demo.c 
+  570  cd ..
+  571  make
+  572  ls
+  573  cd ~/appref
+  574  ./RunCompiledNN 
+  575  lspci | grep PLDA
+  576  uname -mrs
+  577  cd y
+  578  ls
+  579  cd
+  580  cd yolo
+  581  ls
+  582  ./driver_update 
+  583  cd
+  584  cd appref
+  585  ./RunCompiledNN 
+  586  sudo lspci -vvv -s 18:00.0
+  587  cd
+  588  ls
+  589  cd
+  590  cd yolo4/
+  591  ./reset_all 
+  592  cd
+  593  cd appref
+  594  ls
+  595  cat reset
+  596  cat ~/yolo4/reset_all 
+  597  ls
+  598  ls ~/yolo4/
+  599  ./reset
+  600  ./RunCompiledNN 
+  601  cd
+  602  cd yolo4/
+  603  ./all_run 
+  604  cd src/
+  605  vi demo.c 
+  606  cd
+  607  make
+  608  cd
+  609  cd yolo4
+  610  make
+  611  ./all_run 
+  612  ./reset_all 
+  613  shutdown 90
+  614  shutdown 0
+  615  cd
+  616  cd prj/ab/abts/abstc/aiware/srcForHost/
+  617  ls
+  618  vi aiwareHost.cpp
+  619  cd
+  620  cd yolo4/
+  621  cd src/
+  622  ls
+  623  vi demo.c 
+  624  c
+  625  cd 
+  626  cd ai
+  627  cd prj/ab/abts/abstc/aiware/srcForh
+  628  cd prj/ab/abts/abstc/aiware/srcForHost/
+  629  vi aiwareHost.cpp 
+  630  cd
+  631  ls
+  632  cd yolo4/
+  633  ls
+  634  vi log_1.txt
+  635  ls
+  636  cd yolo4/
+  637  ls
+  638  make
+  639  a
+  640  ls
+  641  ./reset_all
+  642  ./all_run 
+  643  make
+  644  ./all_run 
+  645  ls
+  646  ./all_run | tee output_1.txt
+  647  ls
+  648  vi output_1.txt 
+  649  rm output_1.txt 
+  650  ./all_run | tee log_1.txt
+  651  ls
+  652  ./reset_all
+  653  ls
+  654  ./all_run | tee log_1.txt
+  655  make clean;make
+  656  ./reset_all
+  657  lspci | grep PLDA
+  658  ./all_run | tee log_1.txt
+  659  make
+  660  ./all_run | tee log_1.txt
+  661  ./reset_all
+  662  ./all_run | tee log_1.txt
+  663  shutdown 0
+  664  cd yolo4/
+  665  ./all_run 
+  666  ./all_run | tee log_2.txt
+  667  ls
+  668  vi log_2.txt 
+  669  vi log_1.txt 
+  670  vi log_2.txt 
+  671  ./reset_all
+  672  ./all_run | tee log_3.txt
+  673  ls
+  674  vi log_3.txt 
+  675  shutdown 0
+  676  cd yolo4/
+  677  ls
+  678  vi log_4.txt 
+  679  exit
+  680  ls
+  681  ./all_run | tee log_4.txt
+  682  ./all_run | tee log_5.txt
+  683  cd yolo4/
+  684  vi log_4.txt 
+  685  ls
+  686  cd
+  687  ls
+  688  ln -s prj/ab/abts/abstc/aiware aiware
+  689  ls
+  690  cd aiware
+  691  cd
+  692  cd yolo4
+  693  ls
+  694  vi log_4.txt 
+  695  ls
+  696  vi log_5.txt 
+  697  rm log_5.txt 
+  698  ls
+  699  cd src/
+  700  ls
+  701  vi forward_network_AB9
+  702  vi forward_network_AB9.cpp 
+  703  ls
+  704  cd ../cfg/
+  705  ls
+  706  cp yolov3_mod.cfg yolov3_mod_original.cfg
+  707  vi yolov3_mod.cfg
+  708  cp yolov3_tld.cfg yolov3_tld_original.cfg
+  709  vi yolov3_tld.cfg
+  710  cd ..
+  711  ./all_run 
+  712  ls
+  713  ./all_run 
+  714  shutdown 0
+  715  cd yolo4/
+  716  ls
+  717  exit
+  718  ls
+  719  mkdir ccc
+  720  cp aiware/include/aiware.h ccc
+  721  cp aiware/srcForHost/aiwareHost.cpp ccc
+  722  cp yolo/src/demo.c
+  723  cp yolo/src/demo.c ccc
+  724  cp yolo/src/forward_network_AB9.cpp ccc
+  725  ls
+  726  mkdir ccc2
+  727  mv ccc2 ccc4
+  728  ls
+  729  cp yolo4/src/demo.c ccc4/
+  730  cp yolo4/src/forward_network_AB9.cpp ccc4/
+  731  ls
+  732  git log
+  733  cd aiware
+  734  git log
+  735  ls
+  736  cd
+  737  ls
+  738  cd prj/ab/abts/abstc/aiware_Abc_main/src/
+  739  ls
+  740  grep jcTemp *
+  741  vi darknet.c 
+  742  grep PCIE_CB *
+  743  cd ../
+  744  cd ..
+  745  cd aiware/srcForABC/
+  746  grep PCIE_CB *
+  747  vi aiwareAbc.c
+  748  cd ../include/
+  749  ls
+  750  cd ../src
+  751  ls
+  752  cd ..
+  753  ls
+  754  cd srcForABC/
+  755  ls
+  756  vi ab9_clkrst_init.c 
+  757  grep 44 *
+  758  cd ../include/
+  759  grep 44 *
+  760  cd ../
+  761  ls
+  762  cd ../aiware_Abc_main/src/
+  763  ls
+  764  grep 44 *
+  765  grep 48 *
+  766  ls
+  767  cd ../
+  768  git pull
+  769  cd src/
+  770  vi darknet.c 
+  771  ls
+  772  cp darknet.c ~/ccc
+  773  cd
+  774  ls
+  775  exit
+  776  git pull
+  777  ls
+  778  cd abstc/
+  779  ls
+  780  mv yolo_xeon_fp16_aiware_AOT_4/ yolo_xeon_fp16_aiware_AOT_4_KT
+  781  git pulkl
+  782  git pulk
+  783  git pull
+  784  rm aiware/convertCompiledNNtoBinary/convertCompiledNNtoBinary 
+  785  rm plda/driver/update/plda_pcie_fops.c 
+  786  rm plda/driver/update/plda_pcie_lib.c 
+  787  rm yolo_xeon_fp16_aiware_AOT/reset_all
+  788  ls
+  789  git pull
+  790  ls
+  791  cd yolo_xeon_fp16_aiware_AOT_4_KT/
+  792  cd src/
+  793  ls
+  794  ls -al
+  795  vimdiff demo.c ~/yolo4/src/demo.c
+  796  ls
+  797  cd ..
+  798  ls
+  799  ls -al
+  800  cp reset_all ~/yolo4/reset_kt0123
+  801  mv log_* ~/yolo4/
+  802  ls
+  803  cp -r input ~/yolo4
+  804  cp -r data ~/yolo4
+  805  ls
+  806  cp -r reference/ ~/yolo4/
+  807  cd cfg/
+  808  ls
+  809  cp *.weights ~/yolo4/cfg
+  810  cd
+  811  cd yolo4/
+  812  make
+  813  cd
+  814  cd yolo/src/
+  815  ls
+  816  vi forward_network_AB9.cpp 
+  817  exit
+  818  cd aiware
+  819  git status .
+  820  cd ../
+  821  ls
+  822  cd prj/ab/abts/
+  823  git status .
+  824  cd ~/yolo/src/
+  825  ls
+  826  rm 1q 
+  827  cd
+  828  cd plda
+  829  ls
+  830  cd qpcie_api/bin/x86_64/
+  831  ls
+  832  git checkout libpldaqpcie_lib.a libpldaqpcie_lib.so
+  833  ls
+  834  cd
+  835  cd aiware/srcForHost/
+  836  ls
+  837  mv aiwareHost.cpp aiwareHost_kt.cpp
+  838  ls
+  839  git pull
+  840  ls
+  841  vimdiff aiwareHost.cpp aiwareHost_kt.cpp 
+  842  ls
+  843  rm aiwareHost_kt.cpp 
+  844  ls -al
+  845  cd
+  846  cd yolo
+  847  ls
+  848  cd src/
+  849  vi demo.c 
+  850  cd
+  851  cd aiware
+  852  cd srcForHost/
+  853  ls
+  854  git add aiwareHost.cpp 
+  855  ls
+  856  cd
+  857  cd yolo
+  858  ls
+  859  cd src/
+  860  ls
+  861  vi forward_network_AB9.cpp 
+  862  cd ../cfg
+  863  ls
+  864  cp yolov3.cfg yolov3_original.cfg
+  865  cp yolov3_mod.cfg yolov3_mod_original.cfg
+  866  cp yolov3_tld.cfg yolov3_tld_original.cfg
+  867  vi yolov3.cfg 
+  868  vi yolov3_mod.cfg
+  869  vi yolov3_tld.cfg
+  870  ls
+  871  git add yolov3.cfg
+  872  git add yolov3_original.cfg
+  873  git add yolov3_mod_original.cfg
+  874  git add yolov3_tld_original.cfg
+  875  git add yolov3_mod.cfg
+  876  git add yolov3_tld.cfg
+  877  cd ../src/
+  878  ls
+  879  vi demo.c 
+  880  vi forward_network_AB9.cpp 
+  881  git add forward_network_AB9.cpp 
+  882  git commit -m "aiwareHost : retry DMA transfer, yolo_xeon : shorten yolov3 loading"
+  883  git push origin master
+  884  ls
+  885  cd ..
+  886  cd 
+  887  cd yolo4/
+  888  ls
+  889  cd cfg
+  890  ls
+  891  cd ..
+  892  ls
+  893  cat cam_run_*
+  894  ls
+  895  cd cfg
+  896  ls
+  897  cp ~/yolo/cfg/yolov3.cfg .
+  898  cp ~/yolo/cfg/yolov3_mod.cfg .
+  899  cp ~/yolo/cfg/yolov3_tl.cfg .
+  900  cp ~/yolo/cfg/yolov3_tld.cfg .
+  901  cp ~/yolo/cfg/yolov3_tld_original.cfg .
+  902  cp ~/yolo/cfg/yolov3_mod_original.cfg .
+  903  cp ~/yolo/cfg/yolov3_original.cfg .
+  904  ls
+  905  cd ../
+  906  ls
+  907  cd src/
+  908  ls
+  909  ls -al
+  910  vi forward_network_AB9.cpp 
+  911  cd ..
+  912  make
+  913  ls
+  914  vi reset_kt0123 
+  915  git add reset_kt0123 
+  916  cd src/
+  917  git add demo.c 
+  918  git add forward_network_AB9.cpp 
+  919  git commit -m "yolo_xeon_4 : shorten yolov3 loading, OpenCV Multithreading bugfix"
+  920  git push origin master
+  921  ls
+  922  cd ..
+  923  ls
+  924  ./reset_kt0123 
+  925  ls
+  926  ./all_run | tee log_5.txt
+  927  cd inpu
+  928  ls
+  929  ./all_run | tee log_5.txt 
+  930  ls
+  931  mkdir dumpoutput
+  932  ./all_run | tee log_5.txt 
+  933  cd
+  934  cd aiware
+  935  cd srcForHost/
+  936  grep "Failed" *
+  937  vi aiwareHost.cpp 
+  938  ls
+  939  vi aiwareHost.cpp 
+  940  git pull
+  941  vi aiwareHost.cpp 
+  942  cd
+  943  cd yolo4/
+  944  ./all_run | tee log_5.txt 
+  945  ls
+  946  cd src/
+  947  ls
+  948  vi demo.c
+  949  exit
+  950  cd yolo4/
+  951  make
+  952  ./all_run | tee log_5.txt 
+  953  ls
+  954  cd src/
+  955  ls
+  956  git status .
+  957  cd ..
+  958  git status .
+  959  git add .
+  960  git commit -m "yolo_xeon_4 : shorten yolov3 loading, temperature monitoring
+  961  "
+  962  git push origin master
+  963  ls
+  964  ./all_run | tee log_5.txt 
+  965  vi log_5.txt 
+  966  ls
+  967  cd src/
+  968  cd
+  969  cd aiware/srcForHost/
+  970  vi aiwareHost.cpp 
+  971  cp aiwareHost.cpp ~/ccc
+  972  cd
+  973  cd yolo4/
+  974  make
+  975  make clean;make
+  976  cd aiware
+  977  git status .
+  978  git add srcForHost/aiwareHost.cpp 
+  979  git commit -m "aiwareHost : DMA error msg modified"
+  980  git push origin master
+  981  shutdown 0
+  982  cd yolo4/
+  983  ls
+  984  vi log_5.txt 
+  985  vi log_6.txt 
+  986  exit
+  987  cd yolo4/
+  988  ls
+  989  vi log_7.txt 
+  990  exit
+  991  cd yolo4/
+  992  vi log_7.txt 
+  993  ls
+  994  exit
+  995  cd yolo4/
+  996  ls
+  997  ./all_run | tee log_6.txt
+  998  ls
+  999  ./reset_kt0123 
+ 1000  ./all_run | tee log_7.txt
+ 1001  shutdown 0
+ 1002  cd yolo
+ 1003  vi src/demo.c 
+ 1004  make
+ 1005  cd
+ 1006  cd yolo4/
+ 1007  s
+ 1008  ls
+ 1009  vi src/demo.c
+ 1010  ls
+ 1011  make
+ 1012  make clean;make
+ 1013  ls
+ 1014  shutdown 0
+ 1015  cd yolo4/
+ 1016  vi log_8.txt 
+ 1017  exit
+ 1018  cd yolo4/
+ 1019  ls
+ 1020  ./all_run | tee log_8.txt
+ 1021  ./all_run | tee log_9.txt
+ 1022  ./all_run | tee log_10.txt
+ 1023  ./all_run | tee log_11.txt
+ 1024  shutdown 0
+ 1025  cd
+ 1026  cd yolo
+ 1027  cd src/
+ 1028  vi demo.c 
+ 1029  ls
+ 1030  cd ..
+ 1031  ls
+ 1032  cat ref_run_ldss
+ 1033  cat ref_run_mod 
+ 1034  cd examples/
+ 1035  ls
+ 1036  vi darknet.c 
+ 1037  vi detector.c 
+ 1038  exit
+ 1039  cd ..
+ 1040  ls
+ 1041  cd data/
+ 1042  ls
+ 1043  cat mod.data
+ 1044  cat ../cfg/mod.data 
+ 1045  cat mod.names
+ 1046  cat ../cfg/coco.data
+ 1047  exit
+ 1048  ls
+ 1049  cd yolo4/
+ 1050  ls
+ 1051  cd src/
+ 1052  ls
+ 1053  vi demo.c 
+ 1054  :q
+ 1055  exit
+ 1056  cd yolo4/
+ 1057  make
+ 1058  ls
+ 1059  ./all_run 
+ 1060  s
+ 1061  ls
+ 1062  ./all_run 
+ 1063  ls
+ 1064  git status .
+ 1065  cd src/
+ 1066  git pull
+ 1067  ls
+ 1068  git add demo.c
+ 1069  git commit -m "yolo_xeon_aiware_AOT_4 : name, classes table setup bug fix"
+ 1070  git push origin master
+ 1071  ls
+ 1072  exit
+ 1073  cd aiware
+ 1074  git pull
+ 1075  ls
+ 1076  cd
+ 1077  cd yolo4/
+ 1078  make clean;make
+ 1079  ls
+ 1080  exit
+ 1081  cd
+ 1082  ls
+ 1083  ls -al
+ 1084  rm -rf .ssh
+ 1085  ls
+ 1086  mv prj/ab/abts/abstc/plda/driver/ ~/plda_driver
+ 1087  ls
+ 1088  rm aiware
+ 1089  rm appref
+ 1090  rm -rf ccc ccc4
+ 1091  ls
+ 1092  cd backup/
+ 1093  ls
+ 1094  cd ..
+ 1095  rm -rf backup/
+ 1096  ls
+ 1097  rm yolo
+ 1098  rm plda
+ 1099  ls
+ 1100  cd plda_driver/
+ 1101  ls
+ 1102  rm plda-driver-2.7.3-1.noarch.rpm 
+ 1103  rm sdk_linux_src_v325.7z 
+ 1104  ls
+ 1105  cd update/
+ 1106  ls
+ 1107  cd ..
+ 1108  ls
+ 1109  rm -rf include/
+ 1110  ls
+ 1111  cd ..
+ 1112  ls
+ 1113  cd Desktop/
+ 1114  ls
+ 1115  cd Doc
+ 1116  cd
+ 1117  cd Documents/
+ 1118  ls
+ 1119  cd ..
+ 1120  ls
+ 1121  cd Don
+ 1122  cd Downloads/
+ 1123  ls
+ 1124  cd
+ 1125  ls
+ 1126  rm yolo4
+ 1127  ls
+ 1128  cd prj/ab/abts/abstc/
+ 1129  ls
+ 1130  mv application_reference/ ~/.
+ 1131  mv yolo_xeon_fp16_aiware_AOT_4 ~/.
+ 1132  ls
+ 1133  cd ..
+ 1134  ls
+ 1135  cd
+ 1136  ls
+ 1137  mv prj Project
+ 1138  ls
+ 1139  cd application_reference/
+ 1140  ls
+ 1141  cd compiledNN/
+ 1142  ls
+ 1143  cd ..
+ 1144  ls
+ 1145  cd ..
+ 1146  ls
+ 1147  cd yolo_xeon_fp16_aiware_AOT_4/
+ 1148  ls
+ 1149  rm log*
+ 1150  ls
+ 1151  rm cam_run_*
+ 1152  rm ref_run_*
+ 1153  rm run*
+ 1154  rm seoul_run_*
+ 1155  rm video_run_*
+ 1156  ls
+ 1157  cd src/
+ 1158  ls
+ 1159  vi forward_network_AB9.cpp 
+ 1160  ls
+ 1161  cd ../
+ 1162  ls
+ 1163  cd input
+ 1164  ls
+ 1165  rm CompiledNN_LDSS_20201106.h
+ 1166  rm CompiledNN_MOD_20201104.h
+ 1167  rm CompiledNN_TLD_20201104.h
+ 1168  ls
+ 1169  ls -al
+ 1170  rm CompiledNN_Yolov3_stcs32t_bh128_nowait.bin.original3 
+ 1171  rm CompiledNN_Yolov3_stcs32t_bh128_nowait.h.original3 
+ 1172  ls
+ 1173  rm CompiledNN_Yolov3_stcs32t_bh128_nowait.bin
+ 1174  mv CompiledNN_Yolov3_stcs32t_bh128_nowait.bin.original CompiledNN_Yolov3_stcs32t_bh128_nowait.bin
+ 1175  ls
+ 1176  rm CompiledNN_Yolov3_stcs32t_bh128_nowait.h*
+ 1177  ls
+ 1178  rm convertCompiledNNtoBinary 
+ 1179  ls
+ 1180  cd ../
+ 1181  ls
+ 1182  cd reference/
+ 1183  ls
+ 1184  cd ../
+ 1185  ls
+ 1186  rm reset reset1 reset3 reset4
+ 1187  ls
+ 1188  rm reset_all 
+ 1189  ls
+ 1190  vi reset_kt0123 
+ 1191  ls
+ 1192  vi all_run 
+ 1193  cd cfg/
+ 1194  ls
+ 1195  cd ..
+ 1196  ls
+ 1197  make
+ 1198  ./all_run 
+ 1199  ls
+ 1200  cd
+ 1201  ls
+ 1202  rm -rf Project/
+ 1203  cd Desktop/
+ 1204  ls
+ 1205  vi MultiAB9_Demo.desktop
+ 1206  chmod 775 MultiAB9_Demo.desktop 
+ 1207  ls
+ 1208  cat MultiAB9_Demo.desktop 
+ 1209  vi MultiAB9_Demo.desktop 
+ 1210  cd
+ 1211  /home/etri/MultiAB9_Demo/all_run 
+ 1212  exit
+ 1213  ls
+ 1214  cd ..
+ 1215  mv MultiAB9_Demo/ AB9_Demo
+ 1216  cd AB9_Demo/
+ 1217  ls
+ 1218  ./all_run 
+ 1219  vi all_run 
+ 1220  ./all_run 
+ 1221  ls
+ 1222  cd dumpoutput/
+ 1223  ls
+ 1224  rm *
+ 1225  ls
+ 1226  cd ..
+ 1227  ls
+ 1228  cd ../
+ 1229  ls
+ 1230  mv application_reference/ AB9_App_Reference
+ 1231  ls
+ 1232  mv AB9_App_Reference/ application_reference
+ 1233  ls
+ 1234  vi README.txt
+ 1235  ls
+ 1236  cp README.txt Desktop/
+ 1237  ls
+ 1238  tree
+ 1239  treels
+ 1240  ls
+ 1241  passwd
+ 1242  sudo lspci
+ 1243  ls
+ 1244  cd AB9_Demo/
+ 1245  ls
+ 1246  cat bad.list 
+ 1247  ls
+ 1248  rm bad.list 
+ 1249  ls
+ 1250  cd src/
+ 1251  ls
+ 1252  cd ..
+ 1253  ls
+ 1254  cd obj/
+ 1255  ls
+ 1256  cd ..
+ 1257  ls
+ 1258  tar zcvf obj.tar.gz obj
+ 1259  ls
+ 1260  exit
+ 1261  cd AB9_Demo/
+ 1262  ls
+ 1263  ./all_run 
+ 1264  ls
+ 1265  shutdown 0
+ 1266  passwd
+ 1267  ls
+ 1268  tree -d
+ 1269  sudo apt install tree
+ 1270  lswxit
+ 1271  exit
+ 1272  lsb_release
+ 1273  lscpu
+ 1274  lshw
+ 1275  lscpu > lscpu.txt
+ 1276  lshw > lshw.txt
+ 1277  sudo lshw > lshw.txt
+ 1278  gedit lshw.txt &
+ 1279  mediainfo
+ 1280  sshd
+ 1281  cd
+ 1282  ls
+ 1283  ls -al
+ 1284  tree
+ 1285  ls
+ 1286  cd AB9_Demo/
+ 1287  ls
+ 1288  ./all_run 
+ 1289  ls
+ 1290  cd AB9_Demo/
+ 1291  ls
+ 1292  chmod +x all_run
+ 1293  gedit all_run &
+ 1294  ./all_run
+ 1295  ls
+ 1296  cat test_run-2021-01-19_1642.log 
+ 1297  ./darknet
+ 1298  ./darknet --help
+ 1299  ./darknet -v
+ 1300  ./darknet -h
+ 1301  top
+ 1302  ls
+ 1303  cat all_run
+ 1304  ./all_run
+ 1305  cd AB9_Demo/
+ 1306  ls
+ 1307  cat test_run-2021-01-19_1649.log 
+ 1308  rm test_run-2021-01-19_164*
+ 1309  ls
+ 1310  ./all_run
+ 1311  cd AB9_Demo/
+ 1312  ./all_run
+ 1313  cd AB9_Demo/
+ 1314  ./all_run
+ 1315  cd AB9_Demo/
+ 1316  ls
+ 1317  cd AB9_Demo/
+ 1318  ls
+ 1319  ./all_run
+ 1320  ls
+ 1321  cd AB9_Demo/
+ 1322  ls
+ 1323  rm test_run-2021-01-19_1*
+ 1324  ./all_run
+ 1325  ls
+ 1326  cd AB9_Demo/
+ 1327  ls
+ 1328  ./all_run
+ 1329  ls
+ 1330  cd scripts/
+ 1331  ls
+ 1332  ls input
+ 1333  ls examples
+ 1334  ls
+ 1335  cd ..
+ 1336  ls -la
+ 1337  cat test_run-2021-01-20_1501.log 
+ 1338  cat test_run-2021-01-20_1457.log 
+ 1339  ls
+ 1340  cd kt_test/
+ 1341  ls -la
+ 1342  cd day-01/
+ 1343  ls
+ 1344  cat tree_AB9_Demo
+ 1345  cat tree_AB9_Demo.txt 
+ 1346  ls
+ 1347  cat tree_AB9_Demo-after_running-all_run.txt 
+ 1348  ls
+ 1349  cat all_run 
+ 1350  ls
+ 1351  cat AB9\ 분석.docx 
+ 1352  62;c62;c62;cls
+ 1353  ls
+ 1354  cd images/
+ 1355  ls
+ 1356  cd ~
+ 1357  ls
+ 1358  cd AB9_Demo/
+ 1359  ls
+ 1360  all_run
+ 1361  ./all_run
+ 1362  ls
+ 1363  ./all_run
+ 1364  ls
+ 1365  cd AB9_Demo/
+ 1366  ls
+ 1367  ./all_run
+ 1368  top
+ 1369  exit
+ 1370  top | grep etri
+ 1371  cd AB9_Demo/
+ 1372  ls
+ 1373  ./all_run
+ 1374  history
+ 1375  ls
+ 1376  cd AB9_Demo/
+ 1377  ls -la
+ 1378  ./all_run.old >> 2021_01_20_log.txt
+ 1379  ./all_run
+ 1380  ls -la
+ 1381  ./all_run
+ 1382  ps -ef | grep darknet
+ 1383  sudo kill -9 6889 6399
+ 1384  ps -ef | grep darknet
+ 1385  sudo kill -9 6389
+ 1386  ps -ef | grep darknet
+ 1387  sudo kill -9 2780 2787 6389 6399
+ 1388  ps -ef | grep darknet
+ 1389  ls -la
+ 1390  ./all_run.old 
+ 1391  ls
+ 1392  ps -ef | grep darknet
+ 1393  kill 2780 2779
+ 1394  ps -ef | grep darknet
+ 1395  kill -9 2780 2779
+ 1396  ps -ef | grep darknet
+ 1397  kill -9 2780
+ 1398  ps -ef | grep darknet
+ 1399  cd AB9_Demo/
+ 1400  ls
+ 1401  ./all_run
+ 1402  ps -ef | grep 
+ 1403  ps -ef | grep etri
+ 1404  ls
+ 1405  ps -ef 
+ 1406  ps -ef | grep all_run
+ 1407  sudo kill -9 2784
+ 1408  ps -ef | grep all_run
+ 1409  sudo kill -9 6360
+ 1410  ps -ef | grep all_run
+ 1411  ps -ef | grep darknet
+ 1412  sudo kill -9 2780 2787
+ 1413  ls -la
+ 1414  ps -ef | grep darknet
+ 1415  history 
+ 1416  cd AB9_Demo/
+ 1417  ls -la
+ 1418  cat all_run.old 
+ 1419  ./darknet detector demo cfg/coco.data cfg/yolov3.cfg cfg/yolov3.weights
+ 1420  cd AB9_Demo/
+ 1421  ./all_run
+ 1422  sudo ./all_run
+ 1423  ;s 
+ 1424  ls 
+ 1425  cat README.md 
+ 1426  cd ..
+ 1427  ls
+ 1428  cd Downloads/
+ 1429  ls
+ 1430  history
+ 1431  ps -ef | grep all_run
+ 1432  history > history-2021-01-20.log
